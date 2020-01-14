@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Inventory">
+
+    <Button
+        android:id="@+id/partitionFbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="43dp"
+        android:text="F"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pFtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partitionEbtn" />
+
+    <Button
+        android:id="@+id/partitionAbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="8dp"
+        android:text="A"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/partitionBbtn"
+        app:layout_constraintEnd_toStartOf="@+id/pAtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/partitionBbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="B"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/partitionCbtn"
+        app:layout_constraintEnd_toStartOf="@+id/pBtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partitionAbtn" />
+
+    <Button
+        android:id="@+id/partitionCbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="C"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/partitionDbtn"
+        app:layout_constraintEnd_toStartOf="@+id/pCtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partitionBbtn" />
+
+    <Button
+        android:id="@+id/partitionDbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="D"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/partitionEbtn"
+        app:layout_constraintEnd_toStartOf="@+id/pDtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partitionCbtn" />
+
+    <Button
+        android:id="@+id/partitionEbtn"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="E"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/partitionFbtn"
+        app:layout_constraintEnd_toStartOf="@+id/pEtxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partitionDbtn" />
+
+    <TextView
+        android:id="@+id/pAtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pBtxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pBtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="7dp"
+        android:maxLines="2"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pCtxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pAtxt" />
+
+    <TextView
+        android:id="@+id/pCtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="7dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pDtxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pBtxt" />
+
+    <TextView
+        android:id="@+id/pDtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="7dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pEtxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pCtxt" />
+
+    <TextView
+        android:id="@+id/pEtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="7dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pFtxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pDtxt" />
+
+    <TextView
+        android:id="@+id/pFtxt"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="43dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pEtxt" />
+</androidx.constraintlayout.widget.ConstraintLayout>
