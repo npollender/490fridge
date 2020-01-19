@@ -41,14 +41,38 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /** currently only for testing
+    //if below a certain value, the row will be declared as low inventory
     public boolean checkIfLow(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + "='" + id;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + " = " + id;
         Cursor cursor = db.rawQuery(query, null);
-        double weight = cursor.getDouble(cursor.getColumnIndex(COL_2));
-        return weight < 1;
-    } */
+        cursor.moveToFirst();
+        String sweight = cursor.getString(2);
+        cursor.close();
+        double weight = Double.parseDouble(sweight);
+        return weight < 108;
+    }
+
+    //returns name of a row depending on id
+    public String getName(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        String name = cursor.getString(1);
+        return name;
+    }
+
+    //updates the name of a row in the table
+    public void changeName(int id, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_1, name);
+        db.update(TABLE_NAME, cv, _ID + " = " + id, null);
+    }
 
     //Initializes the table with the 6 rows, 1 row for each partition ID'd from 0 to 5.
     public void initData() {
@@ -72,6 +96,7 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
+    //display each row of the table
     public Cursor viewData() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "Select * from " + TABLE_NAME;

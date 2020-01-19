@@ -79,4 +79,14 @@ public class ShoppingListDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COL_1 + "=?", new String[] {id});
     }
+
+    //edit an item on the list
+    public void changeData(String name, String new_name, int amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_1, new_name);
+        cv.put(COL_2, amount);
+        cv.put(COL_3, "");
+        db.update(TABLE_NAME, cv, COL_1 + " =?", new String[] {name});
+    }
 }

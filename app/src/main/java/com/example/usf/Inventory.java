@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +40,12 @@ public class Inventory extends AppCompatActivity {
         pDbtn = (Button)findViewById(R.id.partitionDbtn);
         pEbtn = (Button)findViewById(R.id.partitionEbtn);
         pFbtn = (Button)findViewById(R.id.partitionFbtn);
+        pAtxt = (TextView)findViewById(R.id.pAtxt);
+        pBtxt = (TextView)findViewById(R.id.pBtxt);
+        pCtxt = (TextView)findViewById(R.id.pCtxt);
+        pDtxt = (TextView)findViewById(R.id.pDtxt);
+        pEtxt = (TextView)findViewById(R.id.pEtxt);
+        pFtxt = (TextView)findViewById(R.id.pFtxt);
         pAbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +83,52 @@ public class Inventory extends AppCompatActivity {
             }
         });
         viewData();
+
+        pAtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(1);
+                return true;
+            }
+        });
+        pBtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(2);
+                return true;
+            }
+        });
+        pCtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(3);
+                return true;
+            }
+        });
+        pDtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(4);
+                return true;
+            }
+        });
+        pEtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(5);
+                return true;
+            }
+        });
+        pFtxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                changeName(6);
+                return true;
+            }
+        });
     }
 
+    //show an image for each partition
     public void showImage() {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -98,14 +149,9 @@ public class Inventory extends AppCompatActivity {
         builder.show();
     }
 
+    //view the data of the table
     private void viewData() {
         Cursor cursor = IDB.viewData();
-        pAtxt = (TextView)findViewById(R.id.pAtxt);
-        pBtxt = (TextView)findViewById(R.id.pBtxt);
-        pCtxt = (TextView)findViewById(R.id.pCtxt);
-        pDtxt = (TextView)findViewById(R.id.pDtxt);
-        pEtxt = (TextView)findViewById(R.id.pEtxt);
-        pFtxt = (TextView)findViewById(R.id.pFtxt);
 
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
@@ -127,6 +173,43 @@ public class Inventory extends AppCompatActivity {
             pEtxt.setText(view[4]);
             pFtxt.setText(view[5]);
         }
+    }
+
+    //change a name of a partition depending on the one the user selects
+    public void changeName(final int id) {
+        final Dialog dialog = new Dialog(Inventory.this);
+        dialog.setContentView(R.layout.change_name_partition);
+        TextView prompt = (TextView)dialog.findViewById(R.id.changenametxt);
+        final EditText newname = (EditText)dialog.findViewById(R.id.newnameedit);
+        Button yes = (Button)dialog.findViewById(R.id.yeschangebtn);
+        Button no = (Button)dialog.findViewById(R.id.nochangebtn);
+
+        prompt.setEnabled(true);
+        newname.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(true);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String new_name = newname.getText().toString();
+                IDB.changeName(id, new_name);
+                dialog.dismiss();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
 
