@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,9 +24,8 @@ import java.util.ArrayList;
 public class ShoppingList extends AppCompatActivity {
 
     ShoppingListDBHelper SLDB;
-    Button add_data;
-    EditText name;
-    EditText amount;
+    InventoryDBHelper IDB;
+    Button add_data, check_low;
     ListView shoppinglist;
 
     ArrayList<String> listTable;
@@ -38,10 +38,12 @@ public class ShoppingList extends AppCompatActivity {
         getSupportActionBar().hide();
 
         SLDB = new ShoppingListDBHelper(this);
+        IDB = new InventoryDBHelper(this);
 
         listTable = new ArrayList<>();
 
         add_data = (Button)findViewById(R.id.adddatabtn);
+        check_low = (Button)findViewById(R.id.checklowbtn);
         shoppinglist = (ListView)findViewById(R.id.shopping_list);
 
         viewData();
@@ -50,32 +52,42 @@ public class ShoppingList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = shoppinglist.getItemAtPosition(position).toString();
-                String array[] = text.split(" ", 5);
+                //this is fucking garbage, find a better way to do this
+                String array[] = text.split("x ");
                 String rowID = array[1];
                 deletePopOut(rowID);
-                //Toast.makeText(ShoppingList.this, "Your item will be removed when you exit this page", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        shoppinglist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = shoppinglist.getItemAtPosition(position).toString();
+                //this is fucking garbage, find a better way to do this
+                String array[] = text.split("x ");
+                String rowID = array[1];
+                changeData(rowID);
+                return true;
             }
         });
 
         add_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**String n = name.getText().toString();
-                String a = amount.getText().toString();
-                int aint = Integer.parseInt(a);
-                boolean result = SLDB.insertData(n, aint, false);
-                if (result) {
-                    Toast.makeText(ShoppingList.this, "Data added!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(ShoppingList.this, "Error!", Toast.LENGTH_SHORT).show();
-                }*/
-
                 enterDataPopOut();
+            }
+        });
+
+        check_low.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TEST VALUES
+                addFromInv();
             }
         });
     }
 
+    //displays the data of each row into the listview
     private void viewData() {
         Cursor cursor = SLDB.viewData();
 
@@ -84,7 +96,12 @@ public class ShoppingList extends AppCompatActivity {
         }
         else {
             while (cursor.moveToNext()) {
-                String toAdd = "NAME: " + cursor.getString(1) + " | AMOUNT: " + cursor.getString(2);
+                String checkFlag = cursor.getString(3);
+                String toAdd = cursor.getString(2) + "x " + cursor.getString(1);
+                if (checkFlag.equals("*")) {
+                    toAdd = "\u2726 " + cursor.getString(2) + "x " + cursor.getString(1);
+                }
+                
                 listTable.add(toAdd);
             }
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listTable);
@@ -92,6 +109,22 @@ public class ShoppingList extends AppCompatActivity {
         }
     }
 
+    //searches the db to see if an item already exists (for the recommended items only atm)
+    public boolean findDupe(String name) {
+        Cursor cursor = SLDB.viewData();
+
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                String checkName = cursor.getString(1);
+                if (checkName.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //dialog box for entering data, inserts data into the table upon confirmation
     public void enterDataPopOut() {
         final Dialog dialog = new Dialog(ShoppingList.this);
         dialog.setContentView(R.layout.add_shopping_list_dialog);
@@ -134,6 +167,7 @@ public class ShoppingList extends AppCompatActivity {
         dialog.show();
     }
 
+    //deletes data from specific row selected, data is removed upon confirmation
     public void deletePopOut(final String s) {
         final Dialog dialog = new Dialog(ShoppingList.this);
         dialog.setContentView(R.layout.delete_shopping_list_dialog);
@@ -162,6 +196,155 @@ public class ShoppingList extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        dialog.show();
+    }
+
+    //this checks if the values of the inventory (from fridge) are too low, if they are, then the low items will be available to select to add to the table
+    public void addFromInv() {
+        final Dialog dialog = new Dialog(ShoppingList.this);
+        dialog.setContentView(R.layout.add_from_inventory);
+        TextView prompt = (TextView)dialog.findViewById(R.id.lowinvtxt);
+        Button yes = (Button)dialog.findViewById(R.id.addinvbtn);
+        Button no = (Button)dialog.findViewById(R.id.naddinvbtn);
+        final CheckBox cbA = (CheckBox)dialog.findViewById(R.id.cbA);
+        final CheckBox cbB = (CheckBox)dialog.findViewById(R.id.cbB);
+        final CheckBox cbC = (CheckBox)dialog.findViewById(R.id.cbC);
+        final CheckBox cbD = (CheckBox)dialog.findViewById(R.id.cbD);
+        final CheckBox cbE = (CheckBox)dialog.findViewById(R.id.cbE);
+        final CheckBox cbF = (CheckBox)dialog.findViewById(R.id.cbF);
+
+        prompt.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(true);
+
+        final String pName[] = new String[6];
+        for (int i = 0; i < 6; i++) {
+            pName[i] = IDB.getName(i + 1);
+        }
+        cbA.setText(pName[0]);
+        cbB.setText(pName[1]);
+        cbC.setText(pName[2]);
+        cbD.setText(pName[3]);
+        cbE.setText(pName[4]);
+        cbF.setText(pName[5]);
+
+        if (IDB.checkIfLow(1)) {
+            if (!findDupe(pName[0])) {
+                cbA.setEnabled(true);
+            }
+            else cbA.setVisibility(View.GONE);
+        }
+        else cbA.setVisibility(View.GONE);
+        if (IDB.checkIfLow(2)) {
+            if (!findDupe(pName[1])) {
+                cbB.setEnabled(true);
+            }
+            else cbB.setVisibility(View.GONE);
+        }
+        else cbB.setVisibility(View.GONE);
+        if (IDB.checkIfLow(3)) {
+            if (!findDupe(pName[2])) {
+                cbC.setEnabled(true);
+            }
+            else cbC.setVisibility(View.GONE);
+        }
+        else cbC.setVisibility(View.GONE);
+        if (IDB.checkIfLow(4)) {
+            if (!findDupe(pName[3])) {
+                cbD.setEnabled(true);
+            }
+            else cbD.setVisibility(View.GONE);
+        }
+        else cbD.setVisibility(View.GONE);
+        if (IDB.checkIfLow(5)) {
+            if (!findDupe(pName[4])) {
+                cbE.setEnabled(true);
+            }
+            else cbE.setVisibility(View.GONE);
+        }
+        else cbE.setVisibility(View.GONE);
+        if (IDB.checkIfLow(6)) {
+            if (!findDupe(pName[5])) {
+                cbF.setEnabled(true);
+            }
+            else cbF.setVisibility(View.GONE);
+        }
+        else cbF.setVisibility(View.GONE);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cbA.isChecked()) {
+                    SLDB.insertData(pName[0], 0, true);
+                }
+                if (cbB.isChecked()) {
+                    SLDB.insertData(pName[1], 0, true);
+                }
+                if (cbC.isChecked()) {
+                    SLDB.insertData(pName[2], 0, true);
+                }
+                if (cbD.isChecked()) {
+                    SLDB.insertData(pName[3], 0, true);
+                }
+                if (cbE.isChecked()) {
+                    SLDB.insertData(pName[4], 0, true);
+                }
+                if (cbF.isChecked()) {
+                    SLDB.insertData(pName[5], 0, true);
+                }
+                dialog.dismiss();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public void changeData(final String name) {
+        final Dialog dialog = new Dialog(ShoppingList.this);
+        dialog.setContentView(R.layout.change_shopping_list_entry);
+        TextView prompt = (TextView)dialog.findViewById(R.id.editSL);
+        final EditText newname = (EditText)dialog.findViewById(R.id.newnameSL);
+        final EditText newamt = (EditText)dialog.findViewById(R.id.newamountSL);
+        Button yes = (Button)dialog.findViewById(R.id.okSLEbtn);
+        Button no = (Button)dialog.findViewById(R.id.cancelSLEbtn);
+
+        prompt.setEnabled(true);
+        newname.setEnabled(true);
+        newamt.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(true);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String new_name = newname.getText().toString();
+                int new_amt = Integer.parseInt(newamt.getText().toString());
+                SLDB.changeData(name, new_name, new_amt);
+                dialog.dismiss();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 }
