@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewRecipe">
+
+    <TextView
+        android:id="@+id/VR_name"
+        android:layout_width="290dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="291dp"
+        android:text="recipe name here"
+        app:layout_constraintBottom_toTopOf="@+id/vr_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dish_pic"
+        android:layout_width="82dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toTopOf="@+id/vr_servings"
+        app:layout_constraintEnd_toStartOf="@+id/VR_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pizza" />
+
+    <TextView
+        android:id="@+id/vr_desc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="143dp"
+        android:text="recipe description here \ninstructions... etc"
+        app:layout_constraintBottom_toTopOf="@+id/add_missing_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VR_name" />
+
+    <TextView
+        android:id="@+id/vr_nv"
+        android:layout_width="0dp"
+        android:layout_height="185dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:text="nutritional values here!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vr_desc" />
+
+    <TextView
+        android:id="@+id/vr_servings"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginRight="146dp"
+        android:text="# of servings"
+        app:layout_constraintBottom_toTopOf="@+id/vr_ing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vr_pt"
+        app:layout_constraintTop_toBottomOf="@+id/VR_name" />
+
+    <TextView
+        android:id="@+id/vr_pt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:text="prep time (h:m)"
+        app:layout_constraintBottom_toTopOf="@+id/vr_ing"
+        app:layout_constraintEnd_toStartOf="@+id/vr_servings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VR_name" />
+
+    <TextView
+        android:id="@+id/vr_cat"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:text="category"
+        app:layout_constraintBottom_toTopOf="@+id/vr_ing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vr_servings"
+        app:layout_constraintTop_toBottomOf="@+id/VR_name" />
+
+    <TextView
+        android:id="@+id/vr_ing"
+        android:layout_width="0dp"
+        android:layout_height="191dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:text="list of ingredients and quantities here"
+        app:layout_constraintBottom_toTopOf="@+id/vr_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_missing_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="3dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vr_desc"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

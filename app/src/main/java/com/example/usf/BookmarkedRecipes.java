@@ -1,0 +1,147 @@
+package com.example.usf;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class BookmarkedRecipes extends AppCompatActivity {
+
+    RecipesDBHelper RDB;
+    ListView recipelist;
+
+    ArrayList<String> recipeTable;
+    ArrayAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bookmarked_recipes);
+        getSupportActionBar().hide();
+
+        RDB = new RecipesDBHelper(this);
+
+        recipeTable = new ArrayList<>();
+
+        recipelist = (ListView)findViewById(R.id.bm_list);
+
+        viewData();
+
+        recipelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = recipelist.getItemAtPosition(position).toString();
+                Intent intent = passParameters(text);
+                startActivity(intent);
+                //passes the name of the selected listview row, then will search that name in the db and display all the data from that row
+            }
+        });
+
+        recipelist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //delete dialog
+                String text = recipelist.getItemAtPosition(position).toString();
+                deletePopOut(text);
+                return true;
+            }
+        });
+    }
+
+    //displays the data of each row into the listview
+    private void viewData() {
+        Cursor cursor = RDB.viewData();
+
+        if (cursor.getCount() == 0) {
+            Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            while (cursor.moveToNext()) {
+                String toAdd = cursor.getString(1);
+
+                recipeTable.add(toAdd);
+            }
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, recipeTable);
+            recipelist.setAdapter(adapter);
+        }
+    }
+
+    public void deletePopOut(final String s) {
+        final Dialog dialog = new Dialog(BookmarkedRecipes.this);
+        dialog.setContentView(R.layout.delete_shopping_list_dialog);
+        TextView prompt = (TextView)dialog.findViewById(R.id.areyousure);
+        Button yes = (Button)dialog.findViewById(R.id.yesbtn);
+        Button no = (Button)dialog.findViewById(R.id.nobtn);
+
+        prompt.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(true);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RDB.deleteRow(s);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public Intent passParameters(String name) {
+        Intent intent;
+        String desc, ings, qings, source, servings, pt, nv, attach;
+        int category;
+        boolean tag;
+
+        desc = RDB.getDesc(name);
+        ings = RDB.getIngredients(name);
+        qings = RDB.getQuantities(name);
+        source = RDB.getSource(name);
+        servings = RDB.getServings(name);
+        pt = RDB.getPrepTime(name);
+        nv = RDB.getNutritionalValues(name);
+        attach = RDB.getAttachments(name);
+        category = RDB.getCategory(name);
+        tag = RDB.getTag(name);
+        intent = putAllExtras(name, desc, ings, qings, category, source, servings, pt, nv, attach, tag);
+        return intent;
+    }
+
+    public Intent putAllExtras(String name, String desc, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+        Intent intent = new Intent(BookmarkedRecipes.this, ViewRecipe.class);
+        intent.putExtra("name", name);
+        intent.putExtra("desc", desc);
+        intent.putExtra("ings", ings);
+        intent.putExtra("qings", qings);
+        intent.putExtra("cat", category);
+        intent.putExtra("source", source);
+        intent.putExtra("servings", servings);
+        intent.putExtra("prep_time", pt);
+        intent.putExtra("nut_vals", nv);
+        intent.putExtra("attach", attach);
+        intent.putExtra("tag", tag);
+        return intent;
+    }
+}
