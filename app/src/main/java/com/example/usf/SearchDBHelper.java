@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class RecipesDBHelper extends SQLiteOpenHelper {
+public class SearchDBHelper extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "recipes.db";
+    public static final String DB_NAME = "search.db";
     public static final int VERSION = 1;
-    public static final String TABLE_NAME = "RECIPES";
+    public static final String TABLE_NAME = "SEARCH_RESULTS";
     public static final String _ID = "ID";
     public static final String COL_1 = "NAME";
     public static final String COL_2 = "DESCRIPTION";
@@ -26,7 +26,7 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
     public static final String COL_10 = "ATTACHMENTS";
     public static final String COL_11 = "TAG";
 
-    public RecipesDBHelper(@Nullable Context context) {
+    public SearchDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
         SQLiteDatabase db = this.getWritableDatabase();
     }
@@ -69,10 +69,10 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
     //deletes a specific row depending on the name.
     public void deleteRow(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, COL_1 + "=?", new String[] {id});
+        db.delete(TABLE_NAME, COL_1 + "=?", new String[]{id});
     }
 
-    public boolean insertData(String name,  String desc, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public boolean insertData(String name, String desc, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_1, name);
@@ -91,12 +91,16 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public void sampleData() {
+    public void initData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String count = "SELECT * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(count, null);
         if (cursor.getCount() == 0) {
-            insertData("Cereal", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
         }
         cursor.close();
     }

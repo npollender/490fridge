@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:text="Search for a recipe! \nBlank fields are ignored in the search"
+        android:textSize="20dp"
+        android:id="@+id/searchmsg"
+        android:textColor="#000000"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Name"
+        android:id="@+id/searchname"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Preperation Time"
+        android:id="@+id/searchpreptime"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Calories"
+        android:id="@+id/searchcalories"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Ingredients (separate each with a comma)"
+        android:id="@+id/searching"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Use fridge inventory exclusively"
+        android:id="@+id/useinv"/>
+
+    <Button
+        android:id="@+id/searchbtn"
+        android:layout_width="355dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="search" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Cancel"
+        android:id="@+id/searchcancelbtn"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"/>
+</LinearLayout>
