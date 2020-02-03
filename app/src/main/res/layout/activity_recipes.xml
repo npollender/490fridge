@@ -7,26 +7,36 @@
     tools:context=".Recipes">
 
 
-    <Button
-        android:id="@+id/search_btn"
-        android:layout_width="184dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="165dp"
-        android:layout_marginBottom="65dp"
-        android:text="Search"
-        app:layout_constraintBottom_toTopOf="@+id/BMR_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/BMR_btn"
-        android:layout_width="184dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="259dp"
-        android:text="Bookmarked Recipes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_btn" />
+        <Button
+            android:id="@+id/BMR_btn"
+            android:layout_width="301dp"
+            android:layout_height="100dp"
+            android:layout_margin="50dp"
+            android:fontFamily="@font/raleway"
+            android:text="Bookmarks"
+            android:foreground="@drawable/button_ripple"
+            android:background="@drawable/button_style"
+            android:drawableLeft="@drawable/bookmark"
+            android:paddingLeft="15dp"
+            android:textSize="35dp" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="305dp"
+            android:layout_height="100dp"
+            android:fontFamily="@font/raleway"
+            android:text="Search"
+            android:foreground="@drawable/button_ripple"
+            android:background="@drawable/button_style"
+            android:drawableLeft="@drawable/search"
+            android:paddingLeft="15dp"
+            android:textSize="35dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

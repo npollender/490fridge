@@ -10,28 +10,47 @@
         android:id="@+id/shopping_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/adddatabtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NEW"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checklowbtn" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shopping_list">
 
-    <Button
-        android:id="@+id/checklowbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:text="Check"
-        app:layout_constraintBaseline_toBaselineOf="@+id/adddatabtn"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/checklowbtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_style"
+            android:drawableLeft="@drawable/check_32"
+            android:foreground="@drawable/button_ripple"
+            android:paddingLeft="9dp" />
+
+        <Button
+            android:id="@+id/adddatabtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_style"
+            android:foreground="@drawable/button_ripple"
+            android:text="+"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

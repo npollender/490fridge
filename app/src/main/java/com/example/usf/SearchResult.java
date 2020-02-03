@@ -37,7 +37,7 @@ public class SearchResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Search Results");
 
         no_results = (TextView)findViewById(R.id.no_results_found);
         SDB = new SearchDBHelper(this);

@@ -20,6 +20,7 @@ public class Recipes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
+        getSupportActionBar().setTitle("Recipes");
 
         RDB = new RecipesDBHelper(this);
         SDB = new SearchDBHelper(this);

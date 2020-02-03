@@ -8,23 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        android:text="Search for a recipe! \nBlank fields are ignored in the search"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="Search for a recipe! \nBlank fields are ignored."
         android:textSize="20dp"
         android:id="@+id/searchmsg"
         android:textColor="#000000"/>
     <EditText
         android:layout_width="match_parent"
+        android:fontFamily="@font/raleway"
         android:layout_margin="4dp"
         android:hint="Name"
         android:id="@+id/searchname"
         android:layout_height="match_parent"/>
     <EditText
+        android:fontFamily="@font/raleway"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_margin="4dp"
-        android:hint="Preperation Time"
+        android:hint="Preperation Time (in minutes)"
         android:id="@+id/searchpreptime"
         android:layout_height="match_parent"/>
     <EditText
+        android:inputType="number"
+        android:fontFamily="@font/raleway"
         android:layout_width="match_parent"
         android:layout_margin="4dp"
         android:hint="Calories"
@@ -32,20 +39,23 @@
         android:layout_height="match_parent"/>
     <EditText
         android:layout_width="match_parent"
+        android:fontFamily="@font/raleway"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        android:hint="Ingredients (separate each with a comma)"
+        android:hint="Ingredients (separate with commas)"
         android:id="@+id/searching"/>
 
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Use fridge inventory exclusively"
+        android:fontFamily="@font/raleway"
         android:id="@+id/useinv"/>
 
     <Button
         android:id="@+id/searchbtn"
         android:layout_width="355dp"
+        android:fontFamily="@font/raleway"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
@@ -54,6 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Cancel"
+        android:fontFamily="@font/raleway"
         android:id="@+id/searchcancelbtn"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"/>

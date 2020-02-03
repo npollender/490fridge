@@ -11,60 +11,281 @@
         android:text="The following items are low. Add to list?"
         android:textSize="25dp"
         android:gravity="center"
+        android:fontFamily="@font/raleway"
         android:id="@+id/lowinvtxt"
         android:layout_height="match_parent"/>
 
-    <CheckBox
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_height="match_parent"
-        android:text="Partition A"
-        android:textSize="20dp"
-        android:id="@+id/cbA"/>
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbA"
+            android:layout_width="150dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:text="Partition A"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/pa_minus"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pa_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pa_plus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="+" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Partition B"
-        android:textSize="20dp"
-        android:id="@+id/cbB"/>
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbB"
+            android:layout_width="150dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:text="Partition B"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/pb_minus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textSize="20dp"
+            android:fontFamily="@font/raleway"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pb_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pb_plus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="+" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Partition C"
-        android:textSize="20dp"
-        android:id="@+id/cbC"/>
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbC"
+            android:layout_width="150dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:text="Partition C"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/raleway"
+            android:id="@+id/pc_minus"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/raleway"
+            android:text="0"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pc_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:id="@+id/pc_plus"
+            android:textSize="20dp"
+            android:text="+" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Partition D"
-        android:textSize="20dp"
-        android:id="@+id/cbD"/>
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbD"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/raleway"
+            android:text="Partition D"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/pd_minus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/raleway"
+            android:text="0"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pd_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:fontFamily="@font/raleway"
+            android:layout_height="match_parent"
+            android:id="@+id/pd_plus"
+            android:textSize="20dp"
+            android:text="+" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Partition E"
-        android:textSize="20dp"
-        android:id="@+id/cbE"/>
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbE"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Partition E"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/raleway"
+            android:id="@+id/pe_minus"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textSize="20dp"
+            android:fontFamily="@font/raleway"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pe_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pe_plus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="+" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Partition F"
-        android:textSize="20dp"
-        android:id="@+id/cbF"/>
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
 
+        <CheckBox
+            android:id="@+id/cbF"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Partition F"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/pf_minus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="-" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/raleway"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/pf_num"/>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pf_plus"
+            android:fontFamily="@font/raleway"
+            android:textSize="20dp"
+            android:text="+" />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/addinvbtn"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/raleway"
             android:layout_height="match_parent"
             android:text="Confirm"
             android:textSize="20dp"/>
@@ -73,6 +294,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="cancel"
+            android:fontFamily="@font/raleway"
             android:id="@+id/naddinvbtn"
             android:textSize="20dp"/>
     </LinearLayout>

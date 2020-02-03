@@ -3,8 +3,11 @@ package com.example.usf;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -68,5 +71,20 @@ public class ExtraIngredientsDBHelper extends SQLiteOpenHelper {
     public void deleteRow(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COL_1 + "=?", new String[] {id});
+    }
+
+    public String[] getNames() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        int n = (int)count;
+        Cursor cursor = viewData();
+        String[] names = new String[n];
+
+        int i = 0;
+        while (cursor.moveToNext()) {
+            names[i] = cursor.getString(1);
+            i++;
+        }
+        return names;
     }
 }

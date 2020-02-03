@@ -6,27 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
-    <Button
-        android:id="@+id/tmpbtn"
-        android:layout_width="223dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="181dp"
-        android:layout_marginBottom="84dp"
-        android:text="delete shopping list"
-        app:layout_constraintBottom_toTopOf="@+id/aingbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/aingbtn"
-        android:layout_width="172dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="107dp"
-        android:layout_marginLeft="107dp"
-        android:layout_marginBottom="119dp"
-        android:text="additional ingredients"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tmpbtn" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/tmpbtn"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="delete shopping list table" />
+
+        <Button
+            android:id="@+id/tmp2btn"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="Delete search table" />
+
+        <Button
+            android:id="@+id/aingbtn"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="additional ingredients" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

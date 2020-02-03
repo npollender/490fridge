@@ -10,5 +10,6 @@ public class InteriorView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interior_view);
+        getSupportActionBar().setTitle("Interior View");
     }
 }
