@@ -109,6 +109,7 @@ public class ShoppingList extends AppCompatActivity {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     TextView tv = (TextView)super.getView(position, convertView, parent);
                     Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+                    tv.setTextSize(20);
                     tv.setTypeface(tf);
                     return tv;
                 }
@@ -532,7 +533,7 @@ public class ShoppingList extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

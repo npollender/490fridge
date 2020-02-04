@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_gradient"
         android:orientation="vertical">
 
         <Button
@@ -21,7 +22,7 @@
             android:fontFamily="@font/raleway"
             android:text="Bookmarks"
             android:foreground="@drawable/button_ripple"
-            android:background="@drawable/button_style"
+            android:background="@drawable/simple_button"
             android:drawableLeft="@drawable/bookmark"
             android:paddingLeft="15dp"
             android:textSize="35dp" />
@@ -33,7 +34,7 @@
             android:fontFamily="@font/raleway"
             android:text="Search"
             android:foreground="@drawable/button_ripple"
-            android:background="@drawable/button_style"
+            android:background="@drawable/simple_button"
             android:drawableLeft="@drawable/search"
             android:paddingLeft="15dp"
             android:textSize="35dp" />

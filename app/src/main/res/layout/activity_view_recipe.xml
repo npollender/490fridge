@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".ViewRecipe">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -12,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
-        app:backgroundTint="#00BCD4"
+        app:backgroundTint="#D1D1D1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@drawable/add_extra" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:background="#C8C8C8"
+        android:background="@drawable/background_gradient"
         android:orientation="vertical">
 
         <LinearLayout
@@ -32,12 +33,19 @@
             android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/dish_pic"
+            <androidx.cardview.widget.CardView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/dish_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:srcCompat="@drawable/cereal" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/VR_name"
@@ -45,6 +53,7 @@
                 android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:padding="5dp"
+                android:textColor="#000000"
                 android:textSize="20dp"
                 android:layout_height="70dp"
                 android:layout_marginVertical="10dp"
@@ -67,6 +76,7 @@
                 android:background="@drawable/round_textview"
                 android:layout_height="45dp"
                 android:fontFamily="@font/raleway"
+                android:textColor="#000000"
                 android:text="# of servings" />
 
             <TextView
@@ -75,6 +85,7 @@
                 android:layout_height="45dp"
                 android:padding="5dp"
                 android:background="@drawable/round_textview"
+                android:textColor="#000000"
                 android:fontFamily="@font/raleway"
                 android:layout_marginHorizontal="10dp"
                 android:text="prep time (h:m)" />
@@ -83,6 +94,7 @@
                 android:id="@+id/vr_cat"
                 android:layout_width="105dp"
                 android:padding="5dp"
+                android:textColor="#000000"
                 android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:layout_height="45dp"
@@ -96,6 +108,7 @@
             android:layout_height="275dp"
             android:fontFamily="@font/raleway"
             android:padding="5dp"
+            android:textColor="#000000"
             android:background="@drawable/round_textview"
             android:layout_margin="10dp"
             android:text="recipe description here \ninstructions... etc" />
@@ -105,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/round_textview"
+            android:textColor="#000000"
             android:fontFamily="@font/raleway"
             android:layout_marginHorizontal="10dp"
             android:padding="5dp"
@@ -115,6 +129,7 @@
             android:layout_width="match_parent"
             android:fontFamily="@font/raleway"
             android:layout_height="100dp"
+            android:textColor="#000000"
             android:padding="5dp"
             android:background="@drawable/round_textview"
             android:layout_margin="10dp"

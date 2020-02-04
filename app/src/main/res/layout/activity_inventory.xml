@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".Inventory">
 
     <Button
@@ -11,8 +12,9 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
-        android:background="@drawable/button_style"
-        android:drawableLeft="@drawable/more_32"
+        android:background="@drawable/circular_button"
+        android:drawableLeft="@drawable/more_32_alt"
+        android:foreground="@drawable/button_ripple"
         android:paddingLeft="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -44,7 +46,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="A"
                     android:textSize="36sp" />
@@ -52,8 +55,10 @@
                 <TextView
                     android:id="@+id/pAtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:fontFamily="@font/raleway"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:gravity="center_vertical"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -73,7 +78,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="B"
                     android:textSize="36sp" />
@@ -81,8 +87,10 @@
                 <TextView
                     android:id="@+id/pBtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:fontFamily="@font/raleway"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:gravity="center_vertical"
                     android:maxLines="2"
                     android:textColor="#000000"
@@ -102,7 +110,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="C"
                     android:textSize="36sp" />
@@ -110,8 +119,10 @@
                 <TextView
                     android:id="@+id/pCtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:fontFamily="@font/raleway"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:gravity="center_vertical"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -130,7 +141,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="D"
                     android:textSize="36sp" />
@@ -138,7 +150,9 @@
                 <TextView
                     android:id="@+id/pDtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:fontFamily="@font/raleway"
                     android:gravity="center_vertical"
                     android:textColor="#000000"
@@ -157,7 +171,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="E"
                     android:textSize="36sp" />
@@ -165,8 +180,10 @@
                 <TextView
                     android:id="@+id/pEtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:fontFamily="@font/raleway"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:gravity="center_vertical"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -184,7 +201,8 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/button_style"
+                    android:foreground="@drawable/button_ripple"
+                    android:background="@drawable/circular_button"
                     android:fontFamily="@font/raleway"
                     android:text="F"
                     android:textSize="36sp" />
@@ -192,8 +210,10 @@
                 <TextView
                     android:id="@+id/pFtxt"
                     android:layout_width="230dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:fontFamily="@font/raleway"
+                    android:background="@drawable/rounder_textview"
+                    android:paddingLeft="10dp"
                     android:gravity="center_vertical"
                     android:textColor="#000000"
                     android:textSize="18sp" />
