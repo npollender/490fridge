@@ -3,8 +3,10 @@ package com.example.usf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,6 +20,7 @@ public class ViewRecipe extends AppCompatActivity {
     int category;
     boolean tag;
     TextView tname, tdesc, tings, tsource, tpt, tnv, tcategory, tservings;
+    ImageView iv;
     Intent intent;
     FloatingActionButton missing;
     ShoppingListDBHelper SLDB;
@@ -54,6 +57,7 @@ public class ViewRecipe extends AppCompatActivity {
         tcategory = (TextView)findViewById(R.id.vr_cat);
         tservings = (TextView)findViewById(R.id.vr_servings);
         missing = (FloatingActionButton)findViewById(R.id.add_missing_btn);
+        iv = (ImageView)findViewById(R.id.dish_pic);
 
         final String split[] = parseIngs(ings);
         String qsplit[] = parseIngs(qings);
@@ -67,7 +71,7 @@ public class ViewRecipe extends AppCompatActivity {
             }
         }
 
-        tname.setText("\n" + name);
+        tname.setText(name);
         tdesc.setText(desc);
         tpt.setText(pt);
         tnv.setText(nv);

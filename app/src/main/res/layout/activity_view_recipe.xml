@@ -10,10 +10,11 @@
         android:id="@+id/add_missing_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:clickable="true"
+        app:backgroundTint="#00BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="5dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <ScrollView
@@ -33,18 +34,21 @@
 
             <ImageView
                 android:id="@+id/dish_pic"
-                android:layout_width="82dp"
-                android:layout_height="65dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_margin="10dp"
-                app:srcCompat="@drawable/pizza" />
+                app:srcCompat="@drawable/cereal" />
 
             <TextView
                 android:id="@+id/VR_name"
                 android:layout_width="248dp"
-                android:background="#F2F2F2"
+                android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
+                android:padding="5dp"
+                android:textSize="20dp"
                 android:layout_height="70dp"
                 android:layout_marginVertical="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="recipe name here" />
 
         </LinearLayout>
@@ -58,8 +62,9 @@
 
             <TextView
                 android:id="@+id/vr_servings"
+                android:padding="5dp"
                 android:layout_width="105dp"
-                android:background="#F2F2F2"
+                android:background="@drawable/round_textview"
                 android:layout_height="45dp"
                 android:fontFamily="@font/raleway"
                 android:text="# of servings" />
@@ -68,7 +73,8 @@
                 android:id="@+id/vr_pt"
                 android:layout_width="105dp"
                 android:layout_height="45dp"
-                android:background="#F2F2F2"
+                android:padding="5dp"
+                android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:layout_marginHorizontal="10dp"
                 android:text="prep time (h:m)" />
@@ -76,7 +82,8 @@
             <TextView
                 android:id="@+id/vr_cat"
                 android:layout_width="105dp"
-                android:background="#F2F2F2"
+                android:padding="5dp"
+                android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:layout_height="45dp"
                 android:text="category" />
@@ -88,7 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="275dp"
             android:fontFamily="@font/raleway"
-            android:background="#F2F2F2"
+            android:padding="5dp"
+            android:background="@drawable/round_textview"
             android:layout_margin="10dp"
             android:text="recipe description here \ninstructions... etc" />
 
@@ -96,9 +104,10 @@
             android:id="@+id/vr_ing"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#F2F2F2"
+            android:background="@drawable/round_textview"
             android:fontFamily="@font/raleway"
             android:layout_marginHorizontal="10dp"
+            android:padding="5dp"
             android:text="list of ingredients and quantities here" />
 
         <TextView
@@ -106,7 +115,8 @@
             android:layout_width="match_parent"
             android:fontFamily="@font/raleway"
             android:layout_height="100dp"
-            android:background="#F2F2F2"
+            android:padding="5dp"
+            android:background="@drawable/round_textview"
             android:layout_margin="10dp"
             android:text="nutritional values here!" />
 
