@@ -11,19 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="110dp"
-        app:layout_constraintBottom_toTopOf="@+id/no_results_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/no_results_found"
-        android:layout_width="147dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="492dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sr_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

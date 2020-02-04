@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -80,9 +81,13 @@ public class ViewRecipe extends AppCompatActivity {
         missing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findDupes(split);
+                if (findDupes(split)) Toast.makeText(ViewRecipe.this, "Added missing ingredients to shopping list!", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(ViewRecipe.this, "You have all the ingredients!", Toast.LENGTH_SHORT).show();
             }
         });
+        if (name.equals("Pizza")) {
+            iv.setImageResource(R.drawable.pizza);
+        }
     }
 
     public String[] parseIngs(String ings) {
@@ -90,7 +95,7 @@ public class ViewRecipe extends AppCompatActivity {
         return parsedIngs;
     }
 
-    public void findDupes(String[] ings) {
+    public boolean findDupes(String[] ings) {
         String[] inv_names = new String[6];
         for (int i = 0; i < inv_names.length; i++) {
             inv_names[i] = IDB.getName(i + 1);
@@ -101,11 +106,16 @@ public class ViewRecipe extends AppCompatActivity {
         System.arraycopy(inv_names, 0, both, 0, inv_names.length);
         System.arraycopy(e_inv_names, 0, both, inv_names.length, e_inv_names.length);
         System.arraycopy(sl_inv_names, 0, both, e_inv_names.length, sl_inv_names.length);
+        int result = 0;
         for (int i = 0; i < ings.length; i++) {
             for (int j = 0; j < both.length; j++) {
                 if (ings[i].equals(both[j])) break;
-                if (j == both.length - 1) SLDB.insertData(ings[i], 0, false);
+                if (j == both.length - 1) {
+                    SLDB.insertData(ings[i], 0, false);
+                    result++;
+                }
             }
         }
+        return result > 0;
     }
 }

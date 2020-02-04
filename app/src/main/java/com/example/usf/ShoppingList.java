@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -276,6 +278,14 @@ public class ShoppingList extends AppCompatActivity {
         cbE.setText(pName[4]);
         cbF.setText(pName[5]);
 
+        int leave = 0;
+        for (int i = 0; i < 6; i++) {
+            if (!IDB.checkIfLow(i + 1) || findDupe(pName[i])) leave++;
+        }
+        if (leave > 5) {
+            Toast.makeText(ShoppingList.this, "No items to suggest!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (IDB.checkIfLow(1)) {
             if (!findDupe(pName[0])) {
                 cbA.setEnabled(true);
@@ -522,7 +532,7 @@ public class ShoppingList extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
+        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

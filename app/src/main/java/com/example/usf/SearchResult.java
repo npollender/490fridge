@@ -39,7 +39,6 @@ public class SearchResult extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         getSupportActionBar().setTitle("Search Results");
 
-        no_results = (TextView)findViewById(R.id.no_results_found);
         SDB = new SearchDBHelper(this);
         intent = getIntent();
         passed_name = intent.getStringExtra("name");
@@ -72,7 +71,7 @@ public class SearchResult extends AppCompatActivity {
             searchlist.setAdapter(adapter);
         }
         if (searchTable.isEmpty()) {
-            no_results.setText("NO RESULTS FOUND");
+            Toast.makeText(SearchResult.this, "No recipes found!", Toast.LENGTH_LONG).show();
         }
     }
 

@@ -13,6 +13,7 @@ public class Settings extends AppCompatActivity {
     Button tmp, tmp2, a_ing;
     ShoppingListDBHelper SLDB;
     SearchDBHelper SDB;
+    RecipesDBHelper RDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class Settings extends AppCompatActivity {
         a_ing = (Button)findViewById(R.id.aingbtn);
         SLDB = new ShoppingListDBHelper(this);
         SDB = new SearchDBHelper(this);
+        RDB = new RecipesDBHelper(this);
 
         tmp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SDB.deleteData();
+                RDB.deleteData();
             }
         });
 

@@ -156,6 +156,7 @@ public class Inventory extends AppCompatActivity {
         builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.setCanceledOnTouchOutside(true);
         builder.show();
     }
 
