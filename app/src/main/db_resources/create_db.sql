@@ -80,13 +80,14 @@ CREATE TABLE Recipes_tb(
                            id SERIAL PRIMARY KEY NOT NULL,
                            name VARCHAR(255) NOT NULL,
                            description VARCHAR(255) NOT NULL,
-                           ingredient VARCHAR(255) NOT NULL, -- arraylist wrspt quantity
+                           directions VARCHAR(10485760) NOT NULL,
+                           ingredient VARCHAR(10485760) NOT NULL, -- arraylist wrspt quantity
                            quantity VARCHAR(255) NOT NULL, -- arraylist wrspt ingredient
                            food_cat INT NOT NULL,
                            source VARCHAR(255) NOT NULL,
                            num_of_serv VARCHAR(255) NOT NULL,
                            prep_time VARCHAR(255) NOT NULL,
-                           nutritional_vals VARCHAR(255) NOT NULL,
+                           nutritional_vals VARCHAR(10485760) NOT NULL,
                            attachments VARCHAR(255) NOT NULL,
                            tag BOOLEAN DEFAULT FALSE, -- from inventory or not
                            CONSTRAINT Recipes_FoodCat_fk
