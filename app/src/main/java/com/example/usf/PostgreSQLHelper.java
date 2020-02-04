@@ -6,14 +6,21 @@ import java.sql.DriverManager;
 
 public class PostgreSQLHelper {
 
-    String URL = "";
-    String Username = "";
-    String Password = "";
+    String URL;
+    String Username;
+    String Password;
+
+    public PostgreSQLHelper() {
+        URL = "something";
+        Username = "something";
+        Password = "something";
+    }
 
     public static void main(String[] args) {
 
     }
 
+    //just a test
     public Connection getConnection() {
 
         Connection result = null;
