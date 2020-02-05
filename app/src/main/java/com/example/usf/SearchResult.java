@@ -1,5 +1,6 @@
 package com.example.usf;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,17 +8,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.os.StrictMode;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.example.usf.PostgreSQLHelper.*;
 
 public class SearchResult extends AppCompatActivity {
 
@@ -36,6 +42,7 @@ public class SearchResult extends AppCompatActivity {
     ArrayList<String> searchTable;
     ArrayAdapter adapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +69,44 @@ public class SearchResult extends AppCompatActivity {
 
         searchTable = new ArrayList<>();
         searchlist = (ListView)findViewById(R.id.sr_list);
+
+
+        // These two lines are really needed to solve the issue
+        // --Something unusual has occurred to cause the driver to fail.--
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+
+        /**
+         * Sample query data from db
+         *
+         * Beginning...--______----_______----______
+         */
+        try {
+            establishDBConnection(getBaseContext().getAssets().open("db_config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String query = "SELECT ingredient " +
+                "FROM recipes_tb " +
+                "WHERE name LIKE " + fmtStrDB("%"+passed_name+"%");
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                System.out.println(res.getString(1));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        /**
+         * Ending... --______----_______----______
+         */
 
 
         viewData();
