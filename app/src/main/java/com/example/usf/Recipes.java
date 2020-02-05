@@ -1,15 +1,20 @@
 package com.example.usf;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Recipes extends AppCompatActivity {
 
@@ -21,6 +26,15 @@ public class Recipes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
         getSupportActionBar().setTitle("Recipes");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RDB = new RecipesDBHelper(this);
         SDB = new SearchDBHelper(this);
@@ -43,10 +57,13 @@ public class Recipes extends AppCompatActivity {
                 startActivity(new Intent(Recipes.this, BookmarkedRecipes.class));
             }
         });
+
+
     }
 
     //TODO: new intent here, pass the arguments to ViewRecipe.class and proceed with the search on the server from there! use .putExtra()
     public void searchPopOut() {
+        Toast.makeText(Recipes.this, "Separate each ingredient with a comma please!", Toast.LENGTH_LONG).show();
         final Dialog dialog = new Dialog(Recipes.this);
         dialog.setContentView(R.layout.recipe_search_dialog);
         TextView msg = (TextView)dialog.findViewById(R.id.searchmsg);
@@ -67,6 +84,13 @@ public class Recipes extends AppCompatActivity {
         search.setEnabled(true);
         cancel.setEnabled(true);
 
+        ingredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Recipes.this, "Separate each ingredient with a comma please!", Toast.LENGTH_LONG).show();
+            }
+        });
+
         uselocalinv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +101,7 @@ public class Recipes extends AppCompatActivity {
                 }
                 else {
                     ingredients.setEnabled(true);
-                    ingredients.setHint("Ingredients (separate each with a comma)");
+                    ingredients.setHint("Ingredients");
                 }
             }
         });
@@ -121,7 +145,7 @@ public class Recipes extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 }

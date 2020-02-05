@@ -6,22 +6,16 @@ import java.sql.DriverManager;
 
 public class PostgreSQLHelper {
 
-    String URL;
-    String Username;
-    String Password;
-
-    public PostgreSQLHelper() {
-        URL = "something";
-        Username = "something";
-        Password = "something";
-    }
+    final static String URL = "";
+    final static String Username = "";
+    final static String Password = "";
 
     public static void main(String[] args) {
-
+        getConnection();
     }
 
     //just a test
-    public Connection getConnection() {
+    public static Connection getConnection() {
 
         Connection result = null;
 
@@ -29,9 +23,9 @@ public class PostgreSQLHelper {
             result = DriverManager.getConnection(URL, Username, Password);
             DatabaseMetaData dbmd = result.getMetaData();
 
-            System.out.println(dbmd.getDatabaseProductName());
+            System.out.println("Here: " + dbmd.getDatabaseProductName());
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored) {System.out.println("Nothing found");}
 
         return result;
     }

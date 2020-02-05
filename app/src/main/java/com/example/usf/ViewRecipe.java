@@ -1,8 +1,11 @@
 package com.example.usf;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +36,15 @@ public class ViewRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
         getSupportActionBar().setTitle("Viewing Recipe");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SLDB = new ShoppingListDBHelper(this);
         IDB = new InventoryDBHelper(this);
         EDB = new ExtraIngredientsDBHelper(this);
@@ -74,14 +86,17 @@ public class ViewRecipe extends AppCompatActivity {
 
         tname.setText(name);
         tdesc.setText(desc);
-        tpt.setText(pt);
+        tpt.setText("Prep time:\n" + pt);
         tnv.setText(nv);
-        tservings.setText(servings);
+        tservings.setText("Servings:\n" + servings);
 
         missing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (findDupes(split)) Toast.makeText(ViewRecipe.this, "Added missing ingredients to shopping list!", Toast.LENGTH_SHORT).show();
+                if (findDupes(split)) {
+                    Toast.makeText(ViewRecipe.this, "Added missing ingredients to shopping list!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ViewRecipe.this, ShoppingList.class));
+                }
                 else Toast.makeText(ViewRecipe.this, "You have all the ingredients!", Toast.LENGTH_SHORT).show();
             }
         });

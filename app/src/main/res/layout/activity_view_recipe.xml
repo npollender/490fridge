@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/VR_name"
-                android:layout_width="248dp"
+                android:layout_width="258dp"
                 android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:padding="5dp"
@@ -57,7 +57,6 @@
                 android:textSize="20dp"
                 android:layout_height="70dp"
                 android:layout_marginVertical="10dp"
-                android:layout_marginLeft="10dp"
                 android:text="recipe name here" />
 
         </LinearLayout>
@@ -74,6 +73,7 @@
                 android:padding="5dp"
                 android:layout_width="105dp"
                 android:background="@drawable/round_textview"
+                android:textAlignment="center"
                 android:layout_height="45dp"
                 android:fontFamily="@font/raleway"
                 android:textColor="#000000"
@@ -86,6 +86,7 @@
                 android:padding="5dp"
                 android:background="@drawable/round_textview"
                 android:textColor="#000000"
+                android:textAlignment="center"
                 android:fontFamily="@font/raleway"
                 android:layout_marginHorizontal="10dp"
                 android:text="prep time (h:m)" />
@@ -95,6 +96,7 @@
                 android:layout_width="105dp"
                 android:padding="5dp"
                 android:textColor="#000000"
+                android:textAlignment="center"
                 android:background="@drawable/round_textview"
                 android:fontFamily="@font/raleway"
                 android:layout_height="45dp"
