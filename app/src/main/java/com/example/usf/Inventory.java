@@ -1,10 +1,14 @@
 package com.example.usf;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -24,12 +28,22 @@ public class Inventory extends AppCompatActivity {
 
     InventoryDBHelper IDB;
     TextView pAtxt, pBtxt, pCtxt, pDtxt, pEtxt, pFtxt;
-    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn;
+    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+        getSupportActionBar().setTitle("Monitored Inventory");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         IDB = new InventoryDBHelper(this);
         IDB.initData();
@@ -40,6 +54,7 @@ public class Inventory extends AppCompatActivity {
         pDbtn = (Button)findViewById(R.id.partitionDbtn);
         pEbtn = (Button)findViewById(R.id.partitionEbtn);
         pFbtn = (Button)findViewById(R.id.partitionFbtn);
+        toExtras = (Button)findViewById(R.id.to_extra_btn);
         pAtxt = (TextView)findViewById(R.id.pAtxt);
         pBtxt = (TextView)findViewById(R.id.pBtxt);
         pCtxt = (TextView)findViewById(R.id.pCtxt);
@@ -83,6 +98,13 @@ public class Inventory extends AppCompatActivity {
             }
         });
         viewData();
+
+        toExtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Inventory.this, ExtraIngredients.class));
+            }
+        });
 
         pAtxt.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -146,6 +168,7 @@ public class Inventory extends AppCompatActivity {
         builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.setCanceledOnTouchOutside(true);
         builder.show();
     }
 
@@ -208,7 +231,7 @@ public class Inventory extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 }

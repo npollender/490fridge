@@ -1,19 +1,21 @@
 package com.example.usf;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,16 @@ public class BookmarkedRecipes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarked_recipes);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Bookmarked Recipes");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RDB = new RecipesDBHelper(this);
 
@@ -65,7 +76,7 @@ public class BookmarkedRecipes extends AppCompatActivity {
         Cursor cursor = RDB.viewData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
         }
         else {
             while (cursor.moveToNext()) {
@@ -73,7 +84,15 @@ public class BookmarkedRecipes extends AppCompatActivity {
 
                 recipeTable.add(toAdd);
             }
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, recipeTable);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recipeTable){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    TextView tv = (TextView)super.getView(position, convertView, parent);
+                    Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+                    tv.setTypeface(tf);
+                    return tv;
+                }
+            };;
             recipelist.setAdapter(adapter);
         }
     }

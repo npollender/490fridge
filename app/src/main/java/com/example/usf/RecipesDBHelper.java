@@ -96,7 +96,8 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
         String count = "SELECT * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(count, null);
         if (cursor.getCount() == 0) {
-            insertData("Cereal", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("Cereal", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 mins", "Healthy-ish", "", false);
+            insertData("Pizza", "Mama Mia!", "Dough,Tomato Sauce,Pepperoni,Mozzarella Cheese", "100g,50g,50g,25g", 1, "My brain.", "5", "30 mins", "Not very healthy...", "", false);
         }
         cursor.close();
     }
@@ -189,5 +190,10 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         boolean result = cursor.getInt(11) > 0;
         return result;
+    }
+
+    public void deleteData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
     }
 }

@@ -1,11 +1,15 @@
 package com.example.usf;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class ExtraIngredients extends AppCompatActivity {
 
@@ -30,7 +34,16 @@ public class ExtraIngredients extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extra_ingredients);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("List of Extra Ingredients");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         EIDB = new ExtraIngredientsDBHelper(this);
         ingTable = new ArrayList<>();
@@ -62,7 +75,7 @@ public class ExtraIngredients extends AppCompatActivity {
         Cursor cursor = EIDB.viewData();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No data to show", Toast.LENGTH_SHORT).show();
         }
         else {
             while (cursor.moveToNext()) {
@@ -70,7 +83,16 @@ public class ExtraIngredients extends AppCompatActivity {
 
                 ingTable.add(toAdd);
             }
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingTable);
+            Collections.sort(ingTable);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingTable){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    TextView tv = (TextView)super.getView(position, convertView, parent);
+                    Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf");
+                    tv.setTypeface(tf);
+                    return tv;
+                }
+            };;
             ingredientsList.setAdapter(adapter);
         }
     }
@@ -79,14 +101,22 @@ public class ExtraIngredients extends AppCompatActivity {
         final Dialog dialog = new Dialog(ExtraIngredients.this);
         dialog.setContentView(R.layout.add_shopping_list_dialog);
         final EditText name = (EditText)dialog.findViewById(R.id.iname);
-        final EditText qty = (EditText)dialog.findViewById(R.id.iqty);
         Button ok = (Button)dialog.findViewById(R.id.okbtn);
         Button cancel = (Button)dialog.findViewById(R.id.cancelbtn);
+        Button m = (Button)dialog.findViewById(R.id.add_sl_minus);
+        Button p = (Button)dialog.findViewById(R.id.add_sl_plus);
+        TextView t = (TextView)dialog.findViewById(R.id.new_sl_qty);
+        TextView msg = (TextView)dialog.findViewById(R.id.sl_txt);
+
+        msg.setText("Enter an extra ingredient!");
+
+        m.setVisibility(View.GONE);
+        p.setVisibility(View.GONE);
+        t.setVisibility(View.GONE);
 
         name.setEnabled(true);
         ok.setEnabled(true);
         cancel.setEnabled(true);
-        qty.setVisibility(View.GONE);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override

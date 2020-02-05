@@ -101,8 +101,19 @@ public class SearchDBHelper extends SQLiteOpenHelper {
             insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
             insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
             insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
         }
         cursor.close();
+    }
+
+    //deletes the entire table
+    public void deleteData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
     }
 
     public String getDesc(String name) {
