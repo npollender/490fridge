@@ -9,6 +9,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Properties;
 
 import androidx.annotation.RequiresApi;
@@ -49,11 +53,14 @@ public class PostgreSQLHelper {
      * @param queries
      * @throws SQLException
      */
-    public static void executeMultipleQ(Connection conn, String[] queries) throws SQLException {
+    public static void executeMultipleQ(Connection conn, ArrayList<String> queries) throws SQLException {
         Statement sts = conn.createStatement();
-        for (String s : queries) {
-            if (s != null)
-                sts.addBatch(s);
+
+        Iterator s = queries.iterator();
+        while (s.hasNext()) {
+            String curr_string = s.next().toString();
+            if (curr_string != null)
+                sts.addBatch(curr_string);
         }
         sts.executeBatch();
 

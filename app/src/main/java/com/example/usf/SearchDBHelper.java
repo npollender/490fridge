@@ -16,15 +16,16 @@ public class SearchDBHelper extends SQLiteOpenHelper {
     public static final String _ID = "ID";
     public static final String COL_1 = "NAME";
     public static final String COL_2 = "DESCRIPTION";
-    public static final String COL_3 = "INGREDIENTS";
-    public static final String COL_4 = "QUANTITY";
-    public static final String COL_5 = "CATEGORY";
-    public static final String COL_6 = "SOURCE";
-    public static final String COL_7 = "SERVINGS";
-    public static final String COL_8 = "PREP_TIME";
-    public static final String COL_9 = "NUT_VALS";
-    public static final String COL_10 = "ATTACHMENTS";
-    public static final String COL_11 = "TAG";
+    public static final String COL_3 = "DIRECTIONS";
+    public static final String COL_4 = "INGREDIENTS";
+    public static final String COL_5 = "QUANTITY";
+    public static final String COL_6 = "CATEGORY";
+    public static final String COL_7 = "SOURCE";
+    public static final String COL_8 = "SERVINGS";
+    public static final String COL_9 = "PREP_TIME";
+    public static final String COL_10 = "NUT_VALS";
+    public static final String COL_11 = "ATTACHMENTS";
+    public static final String COL_12 = "TAG";
 
     public SearchDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -40,13 +41,14 @@ public class SearchDBHelper extends SQLiteOpenHelper {
                 COL_2 + " TEXT NOT NULL, " +
                 COL_3 + " TEXT NOT NULL, " +
                 COL_4 + " TEXT NOT NULL, " +
-                COL_5 + " INTEGER NOT NULL, " +
-                COL_6 + " TEXT, " +
-                COL_7 + " TEXT NOT NULL, " +
+                COL_5 + " TEXT NOT NULL, " +
+                COL_6 + " INTEGER NOT NULL, " +
+                COL_7 + " TEXT, " +
                 COL_8 + " TEXT NOT NULL, " +
                 COL_9 + " TEXT NOT NULL, " +
                 COL_10 + " TEXT NOT NULL, " +
-                COL_11 + " BOOLEAN NOT NULL" +
+                COL_11 + " TEXT NOT NULL, " +
+                COL_12 + " BOOLEAN NOT NULL" +
                 ");";
 
         db.execSQL(SQL_CREATE_SL_TABLE);
@@ -72,20 +74,21 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, COL_1 + "=?", new String[]{id});
     }
 
-    public boolean insertData(String name, String desc, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public boolean insertData(String name, String desc, String dirts, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_1, name);
         cv.put(COL_2, desc);
-        cv.put(COL_3, ings);
-        cv.put(COL_4, qings);
-        cv.put(COL_5, category);
-        cv.put(COL_6, source);
-        cv.put(COL_7, servings);
-        cv.put(COL_8, pt);
-        cv.put(COL_9, nv);
-        cv.put(COL_10, attach);
-        cv.put(COL_11, tag);
+        cv.put(COL_3, dirts);
+        cv.put(COL_4, ings);
+        cv.put(COL_5, qings);
+        cv.put(COL_6, category);
+        cv.put(COL_7, source);
+        cv.put(COL_8, servings);
+        cv.put(COL_9, pt);
+        cv.put(COL_10, nv);
+        cv.put(COL_11, attach);
+        cv.put(COL_12, tag);
 
         long result = db.insert(TABLE_NAME, null, cv);
         return result != -1;
@@ -96,16 +99,16 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String count = "SELECT * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(count, null);
         if (cursor.getCount() == 0) {
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
-            insertData("NULL", "A good start to the morning!", "Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
+            insertData("NULL", "A good start to the morning!", "Cereal,Milk","Cereal,Milk", "100g,100g", 1, "My brain.", "1", "5 minutes", "Healthy-ish", "", false);
         }
         cursor.close();
     }
@@ -117,6 +120,15 @@ public class SearchDBHelper extends SQLiteOpenHelper {
     }
 
     public String getDesc(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        String result = cursor.getString(2);
+        return result;
+    }
+
+    public String getDirects(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
