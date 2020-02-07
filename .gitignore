@@ -25,3 +25,5 @@ postgresql-42.2.9/build/.transforms/49149d90afc896a578825fe07a873005/postgresql-
 postgresql-42.2.9/build/.transforms/6ff14a79b747ae8a4e2a38df1ec07555.bin
 
 postgresql-42.2.9/build/.transforms/f6933738b1e0245f61f059f356d1635e.bin
+
+app/src/main/assets/s3_config.properties

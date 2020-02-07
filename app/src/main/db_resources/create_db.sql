@@ -83,7 +83,7 @@ CREATE TABLE Recipes_tb(
                            directions VARCHAR(10485760) NOT NULL,
                            ingredient VARCHAR(10485760) NOT NULL, -- arraylist wrspt quantity
                            quantity VARCHAR(255) NOT NULL, -- arraylist wrspt ingredient
-                           food_cat INT NOT NULL,
+                           food_cat VARCHAR(255) NOT NULL,
                            source VARCHAR(255) NOT NULL,
                            num_of_serv VARCHAR(255) NOT NULL,
                            prep_time VARCHAR(255) NOT NULL,

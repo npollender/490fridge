@@ -87,10 +87,7 @@ public class PostgreSQLHelper {
         Connection conn3 = null;
 
         try {
-            Properties prop = new Properties();
-
-            // load a properties file
-            prop.load(input);
+            Properties prop = getProperties(input);
 
             url = prop.getProperty("db.url");
             user = prop.getProperty("db.user");
@@ -113,5 +110,13 @@ public class PostgreSQLHelper {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public static Properties getProperties(InputStream input) throws IOException {
+        Properties prop = new Properties();
+
+        // load a properties file
+        prop.load(input);
+        return prop;
     }
 }
