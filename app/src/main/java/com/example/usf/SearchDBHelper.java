@@ -133,7 +133,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(2);
+        String result = cursor.getString(3);
         return result;
     }
 
@@ -142,7 +142,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(3);
+        String result = cursor.getString(4);
         return result;
     }
 
@@ -151,7 +151,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(4);
+        String result = cursor.getString(5);
         return result;
     }
 
@@ -160,7 +160,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        int result = cursor.getInt(5);
+        int result = cursor.getInt(6);
         return result;
     }
 
@@ -169,7 +169,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(6);
+        String result = cursor.getString(7);
         return result;
     }
 
@@ -178,7 +178,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(7);
+        String result = cursor.getString(8);
         return result;
     }
 
@@ -187,7 +187,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(8);
+        String result = cursor.getString(9);
         return result;
     }
 
@@ -196,7 +196,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(9);
+        String result = cursor.getString(10);
         return result;
     }
 
@@ -205,7 +205,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String result = cursor.getString(10);
+        String result = cursor.getString(11);
         return result;
     }
 
@@ -214,7 +214,7 @@ public class SearchDBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        boolean result = cursor.getInt(11) > 0;
+        boolean result = cursor.getInt(12) > 0;
         return result;
     }
 }

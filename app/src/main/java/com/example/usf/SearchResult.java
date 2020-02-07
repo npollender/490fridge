@@ -11,6 +11,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -87,7 +89,18 @@ public class SearchResult extends AppCompatActivity {
         // execute the search
         search_in_RDS();
 
+
+
         viewData();
+
+        searchlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name_to_find = searchlist.getItemAtPosition(position).toString();
+                Intent intent = passParameters(name_to_find);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -245,7 +258,7 @@ public class SearchResult extends AppCompatActivity {
         boolean tag;
 
         desc = SDB.getDesc(name);
-        inst = SDB.getDesc(name);
+        inst = SDB.getDirects(name);
         ings = SDB.getIngredients(name);
         qings = SDB.getQuantities(name);
         source = SDB.getSource(name);
@@ -255,11 +268,12 @@ public class SearchResult extends AppCompatActivity {
         attach = SDB.getAttachments(name);
         category = SDB.getCategory(name);
         tag = SDB.getTag(name);
-        intent = putAllExtras(name, desc, inst, ings, qings, category, source, servings, pt, nv, attach, tag);
+        boolean fromSearch = true;
+        intent = putAllExtras(name, desc, inst, ings, qings, category, source, servings, pt, nv, attach, tag, fromSearch);
         return intent;
     }
 
-    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag, boolean fromSearch) {
         Intent intent = new Intent(SearchResult.this, ViewRecipe.class);
         intent.putExtra("name", name);
         intent.putExtra("desc", desc);
@@ -273,6 +287,7 @@ public class SearchResult extends AppCompatActivity {
         intent.putExtra("nut_vals", nv);
         intent.putExtra("attach", attach);
         intent.putExtra("tag", tag);
+        intent.putExtra("fromSearch", fromSearch);
         return intent;
     }
 

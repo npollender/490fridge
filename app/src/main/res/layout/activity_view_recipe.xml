@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add_extra" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_to_bookmarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        app:backgroundTint="#D1D1D1"
+        app:layout_constraintBottom_toTopOf="@+id/add_missing_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/favorite" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -107,7 +118,7 @@
         <TextView
             android:id="@+id/vr_desc"
             android:layout_width="match_parent"
-            android:layout_height="275dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/raleway"
             android:padding="5dp"
             android:textColor="#000000"
@@ -118,24 +129,24 @@
         <TextView
             android:id="@+id/vr_ing"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/round_textview"
-            android:textColor="#000000"
-            android:fontFamily="@font/raleway"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
+            android:background="@drawable/round_textview"
+            android:fontFamily="@font/raleway"
             android:padding="5dp"
-            android:text="list of ingredients and quantities here" />
+            android:text="list of ingredients and quantities here"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/vr_nv"
             android:layout_width="match_parent"
-            android:fontFamily="@font/raleway"
-            android:layout_height="100dp"
-            android:textColor="#000000"
-            android:padding="5dp"
-            android:background="@drawable/round_textview"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="nutritional values here!" />
+            android:background="@drawable/round_textview"
+            android:fontFamily="@font/raleway"
+            android:padding="5dp"
+            android:text="nutritional values here!"
+            android:textColor="#000000" />
 
     </LinearLayout>
     </ScrollView>

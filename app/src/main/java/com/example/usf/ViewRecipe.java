@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,13 +21,14 @@ import org.w3c.dom.Text;
 public class ViewRecipe extends AppCompatActivity {
 
     //get extras
-    String name, desc, ings, qings, source, servings, pt, nv, attach;
+    String name, desc, instr, ings, qings, source, servings, pt, nv, attach;
     int category;
-    boolean tag;
+    boolean tag, fromSearch;
     TextView tname, tdesc, tings, tsource, tpt, tnv, tcategory, tservings;
     ImageView iv;
     Intent intent;
-    FloatingActionButton missing;
+    FloatingActionButton missing, addToBM;
+    RecipesDBHelper RDB;
     ShoppingListDBHelper SLDB;
     InventoryDBHelper IDB;
     ExtraIngredientsDBHelper EDB;
@@ -48,10 +50,12 @@ public class ViewRecipe extends AppCompatActivity {
         SLDB = new ShoppingListDBHelper(this);
         IDB = new InventoryDBHelper(this);
         EDB = new ExtraIngredientsDBHelper(this);
+        RDB = new RecipesDBHelper(this);
 
         intent = getIntent();
         name = intent.getStringExtra("name");
         desc = intent.getStringExtra("desc");
+        instr = intent.getStringExtra("instr");
         ings = intent.getStringExtra("ings");
         qings = intent.getStringExtra("qings");
         category = intent.getIntExtra("cat", 0);
@@ -61,6 +65,7 @@ public class ViewRecipe extends AppCompatActivity {
         nv = intent.getStringExtra("nut_vals");
         attach = intent.getStringExtra("attach");
         tag = intent.getBooleanExtra("tag", false);
+        fromSearch = intent.getBooleanExtra("fromSearch", false);
 
         tname = (TextView)findViewById(R.id.VR_name);
         tdesc = (TextView)findViewById(R.id.vr_desc);
@@ -71,21 +76,48 @@ public class ViewRecipe extends AppCompatActivity {
         tservings = (TextView)findViewById(R.id.vr_servings);
         missing = (FloatingActionButton)findViewById(R.id.add_missing_btn);
         iv = (ImageView)findViewById(R.id.dish_pic);
+        addToBM = (FloatingActionButton)findViewById(R.id.add_to_bookmarks);
 
-        final String split[] = parseIngs(ings);
-        String qsplit[] = parseIngs(qings);
+        if (!fromSearch) {
+            addToBM.hide();
+        }
+
+        addToBM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RDB.insertData(name, desc, instr, ings, qings, category, source, servings, pt, nv, attach, tag);
+                Toast.makeText(ViewRecipe.this, "Recipe added to bookmarks!", Toast.LENGTH_SHORT).show();
+                addToBM.hide();
+            }
+        });
+
+        final String split[] = ings.split(" \\| ");
+        String qsplit[] = qings.split(" \\| ");
         tings.setText("");
+        try {
+
         for (int i = 0; i < split.length; i++) {
             if (i == split.length - 1) {
                 tings.append(qsplit[i] + " " + split[i] + ".");
             }
             else {
-                tings.append(qsplit[i] + " " + split[i] + ", ");
+                tings.append(qsplit[i] + " " + split[i] + "\n");
+            }
+        }}catch(Exception ignored) {}
+
+        String[] instr_split = instr.split(" \\| ");
+
+        tdesc.setText(desc +"\n\n");
+        for (int i = 0; i < instr_split.length; i++) {
+            if (i == instr_split.length - 1) {
+                tdesc.append(instr_split[i] + ".");
+            }
+            else {
+                tdesc.append(instr_split[i] + "\n");
             }
         }
 
         tname.setText(name);
-        tdesc.setText(desc);
         tpt.setText("Prep time:\n" + pt);
         tnv.setText(nv);
         tservings.setText("Servings:\n" + servings);
@@ -103,11 +135,16 @@ public class ViewRecipe extends AppCompatActivity {
         if (name.equals("Pizza")) {
             iv.setImageResource(R.drawable.pizza);
         }
-    }
 
-    public String[] parseIngs(String ings) {
-        String parsedIngs[] = ings.split(",");
-        return parsedIngs;
+        //TODO: automatically open pdf
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(source);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     public boolean findDupes(String[] ings) {
