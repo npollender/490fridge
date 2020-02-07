@@ -1,5 +1,6 @@
 package com.example.usf;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +11,9 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -24,12 +27,21 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static com.example.usf.PostgreSQLHelper.*;
+
 public class Inventory extends AppCompatActivity {
 
     InventoryDBHelper IDB;
     TextView pAtxt, pBtxt, pCtxt, pDtxt, pEtxt, pFtxt;
     Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +109,13 @@ public class Inventory extends AppCompatActivity {
                 showImage();
             }
         });
+
+        // These two lines are really needed to solve the issue
+        // --Something unusual has occurred to cause the driver to fail.--
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        getWeightFromServer();
         viewData();
 
         toExtras.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +252,34 @@ public class Inventory extends AppCompatActivity {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void getWeightFromServer() {
+        try {
+            establishDBConnection(getBaseContext().getAssets().open("db_config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // TODO - make it dynamic for all partitions
+        String query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'A'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(1, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
 

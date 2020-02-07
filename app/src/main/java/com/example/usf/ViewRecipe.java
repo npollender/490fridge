@@ -22,7 +22,7 @@ public class ViewRecipe extends AppCompatActivity {
 
     //get extras
     String name, desc, instr, ings, qings, source, servings, pt, nv, attach;
-    int category;
+    String category;
     boolean tag, fromSearch;
     TextView tname, tdesc, tings, tsource, tpt, tnv, tcategory, tservings;
     ImageView iv;
@@ -58,7 +58,7 @@ public class ViewRecipe extends AppCompatActivity {
         instr = intent.getStringExtra("instr");
         ings = intent.getStringExtra("ings");
         qings = intent.getStringExtra("qings");
-        category = intent.getIntExtra("cat", 0);
+        category = intent.getStringExtra("cat");
         source = intent.getStringExtra("source");
         servings = intent.getStringExtra("servings");
         pt = intent.getStringExtra("prep_time");
@@ -78,6 +78,7 @@ public class ViewRecipe extends AppCompatActivity {
         iv = (ImageView)findViewById(R.id.dish_pic);
         addToBM = (FloatingActionButton)findViewById(R.id.add_to_bookmarks);
 
+        tcategory.setText("Category\n" + category);
         if (!fromSearch) {
             addToBM.hide();
         }
@@ -98,10 +99,10 @@ public class ViewRecipe extends AppCompatActivity {
 
         for (int i = 0; i < split.length; i++) {
             if (i == split.length - 1) {
-                tings.append(qsplit[i] + " " + split[i] + ".");
+                tings.append(">"+qsplit[i] + " " + split[i] + ".");
             }
             else {
-                tings.append(qsplit[i] + " " + split[i] + "\n");
+                tings.append(">"+qsplit[i] + " " + split[i] + "\n");
             }
         }}catch(Exception ignored) {}
 
@@ -110,10 +111,10 @@ public class ViewRecipe extends AppCompatActivity {
         tdesc.setText(desc +"\n\n");
         for (int i = 0; i < instr_split.length; i++) {
             if (i == instr_split.length - 1) {
-                tdesc.append(instr_split[i] + ".");
+                tdesc.append(">"+instr_split[i] + ".");
             }
             else {
-                tdesc.append(instr_split[i] + "\n");
+                tdesc.append(">"+instr_split[i] + "\n");
             }
         }
 

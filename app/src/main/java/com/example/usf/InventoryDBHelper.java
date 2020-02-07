@@ -75,6 +75,16 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, cv, _ID + " = " + id, null);
     }
 
+    public void updateWeight(int id, double weight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_2, weight);
+        db.update(TABLE_NAME, cv, _ID + " = " + id, null);
+    }
+
     //Initializes the table with the 6 rows, 1 row for each partition ID'd from 0 to 5.
     public void initData() {
         SQLiteDatabase db = this.getWritableDatabase();

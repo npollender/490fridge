@@ -42,7 +42,7 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
                 COL_3 + " TEXT NOT NULL, " +
                 COL_4 + " TEXT NOT NULL, " +
                 COL_5 + " TEXT NOT NULL, " +
-                COL_6 + " INTEGER NOT NULL, " +
+                COL_6 + " TEXT NOT NULL, " +
                 COL_7 + " TEXT, " +
                 COL_8 + " TEXT NOT NULL, " +
                 COL_9 + " TEXT NOT NULL, " +
@@ -74,7 +74,7 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, COL_1 + "=?", new String[] {id});
     }
 
-    public boolean insertData(String name, String desc, String dirts, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public boolean insertData(String name, String desc, String dirts, String ings, String qings,  String category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_1, name);
@@ -130,12 +130,12 @@ public class RecipesDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public int getCategory(String name) {
+    public String getCategory(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = '" + name + "'";
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        int result = cursor.getInt(6);
+        String result = cursor.getString(6);
         return result;
     }
 

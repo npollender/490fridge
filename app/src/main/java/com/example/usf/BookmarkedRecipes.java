@@ -131,7 +131,7 @@ public class BookmarkedRecipes extends AppCompatActivity {
     public Intent passParameters(String name) {
         Intent intent;
         String desc, ings, instr, qings, source, servings, pt, nv, attach;
-        int category;
+        String category;
         boolean tag;
 
         desc = RDB.getDesc(name);
@@ -149,7 +149,7 @@ public class BookmarkedRecipes extends AppCompatActivity {
         return intent;
     }
 
-    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, String category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         Intent intent = new Intent(BookmarkedRecipes.this, ViewRecipe.class);
         intent.putExtra("name", name);
         intent.putExtra("desc", desc);

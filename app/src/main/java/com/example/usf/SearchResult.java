@@ -215,7 +215,7 @@ public class SearchResult extends AppCompatActivity {
                 while (res.next()) {
                     // clear the content of the DB and then insert new one
                     SDB.insertData(res.getString(2), res.getString(3), res.getString(4),
-                            res.getString(5), res.getString(6), res.getInt(7),
+                            res.getString(5), res.getString(6), res.getString(7),
                             res.getString(8), res.getString(9), res.getString(10),
                             res.getString(11), res.getString(12), res.getBoolean(13));
                 }
@@ -254,7 +254,7 @@ public class SearchResult extends AppCompatActivity {
     public Intent passParameters(String name) {
         Intent intent;
         String desc, inst, ings, qings, source, servings, pt, nv, attach;
-        int category;
+        String category;
         boolean tag;
 
         desc = SDB.getDesc(name);
@@ -273,7 +273,7 @@ public class SearchResult extends AppCompatActivity {
         return intent;
     }
 
-    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag, boolean fromSearch) {
+    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, String category, String source, String servings, String pt, String nv, String attach, boolean tag, boolean fromSearch) {
         Intent intent = new Intent(SearchResult.this, ViewRecipe.class);
         intent.putExtra("name", name);
         intent.putExtra("desc", desc);
