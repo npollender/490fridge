@@ -11,6 +11,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -87,7 +89,18 @@ public class SearchResult extends AppCompatActivity {
         // execute the search
         search_in_RDS();
 
+
+
         viewData();
+
+        searchlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name_to_find = searchlist.getItemAtPosition(position).toString();
+                Intent intent = passParameters(name_to_find);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -202,7 +215,7 @@ public class SearchResult extends AppCompatActivity {
                 while (res.next()) {
                     // clear the content of the DB and then insert new one
                     SDB.insertData(res.getString(2), res.getString(3), res.getString(4),
-                            res.getString(5), res.getString(6), res.getInt(7),
+                            res.getString(5), res.getString(6), res.getString(7),
                             res.getString(8), res.getString(9), res.getString(10),
                             res.getString(11), res.getString(12), res.getBoolean(13));
                 }
@@ -241,11 +254,11 @@ public class SearchResult extends AppCompatActivity {
     public Intent passParameters(String name) {
         Intent intent;
         String desc, inst, ings, qings, source, servings, pt, nv, attach;
-        int category;
+        String category;
         boolean tag;
 
         desc = SDB.getDesc(name);
-        inst = SDB.getDesc(name);
+        inst = SDB.getDirects(name);
         ings = SDB.getIngredients(name);
         qings = SDB.getQuantities(name);
         source = SDB.getSource(name);
@@ -255,11 +268,12 @@ public class SearchResult extends AppCompatActivity {
         attach = SDB.getAttachments(name);
         category = SDB.getCategory(name);
         tag = SDB.getTag(name);
-        intent = putAllExtras(name, desc, inst, ings, qings, category, source, servings, pt, nv, attach, tag);
+        boolean fromSearch = true;
+        intent = putAllExtras(name, desc, inst, ings, qings, category, source, servings, pt, nv, attach, tag, fromSearch);
         return intent;
     }
 
-    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, String category, String source, String servings, String pt, String nv, String attach, boolean tag, boolean fromSearch) {
         Intent intent = new Intent(SearchResult.this, ViewRecipe.class);
         intent.putExtra("name", name);
         intent.putExtra("desc", desc);
@@ -273,6 +287,7 @@ public class SearchResult extends AppCompatActivity {
         intent.putExtra("nut_vals", nv);
         intent.putExtra("attach", attach);
         intent.putExtra("tag", tag);
+        intent.putExtra("fromSearch", fromSearch);
         return intent;
     }
 

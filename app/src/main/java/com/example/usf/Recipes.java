@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 public class Recipes extends AppCompatActivity {
 
-    RecipesDBHelper RDB;
     SearchDBHelper SDB;
     Button search, bm;
     @Override
@@ -36,9 +35,7 @@ public class Recipes extends AppCompatActivity {
         getSupportActionBar().setCustomView(tv);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RDB = new RecipesDBHelper(this);
         SDB = new SearchDBHelper(this);
-        RDB.sampleData();
         SDB.initData();
 
         search = (Button)findViewById(R.id.search_btn);

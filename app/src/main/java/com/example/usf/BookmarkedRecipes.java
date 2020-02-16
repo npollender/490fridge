@@ -130,12 +130,13 @@ public class BookmarkedRecipes extends AppCompatActivity {
 
     public Intent passParameters(String name) {
         Intent intent;
-        String desc, ings, qings, source, servings, pt, nv, attach;
-        int category;
+        String desc, ings, instr, qings, source, servings, pt, nv, attach;
+        String category;
         boolean tag;
 
         desc = RDB.getDesc(name);
         ings = RDB.getIngredients(name);
+        instr = RDB.getDirects(name);
         qings = RDB.getQuantities(name);
         source = RDB.getSource(name);
         servings = RDB.getServings(name);
@@ -144,14 +145,15 @@ public class BookmarkedRecipes extends AppCompatActivity {
         attach = RDB.getAttachments(name);
         category = RDB.getCategory(name);
         tag = RDB.getTag(name);
-        intent = putAllExtras(name, desc, ings, qings, category, source, servings, pt, nv, attach, tag);
+        intent = putAllExtras(name, desc, instr, ings, qings, category, source, servings, pt, nv, attach, tag);
         return intent;
     }
 
-    public Intent putAllExtras(String name, String desc, String ings, String qings, int category, String source, String servings, String pt, String nv, String attach, boolean tag) {
+    public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, String category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         Intent intent = new Intent(BookmarkedRecipes.this, ViewRecipe.class);
         intent.putExtra("name", name);
         intent.putExtra("desc", desc);
+        intent.putExtra("instr", instr);
         intent.putExtra("ings", ings);
         intent.putExtra("qings", qings);
         intent.putExtra("cat", category);

@@ -31,6 +31,8 @@ import java.util.Properties;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 public class InteriorView extends AppCompatActivity {
 
     @Override
@@ -49,12 +51,7 @@ public class InteriorView extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
 
-        Glide.with(getBaseContext())
-                .load("https://smart-fridge-pics.s3.ca-central-1.amazonaws.com/image.jpg")
-                .centerCrop()
-                .into(imageView);
 
 //        AWSCredentials credentials = null;
 //        try {
@@ -77,6 +74,13 @@ public class InteriorView extends AppCompatActivity {
 //
 //        displayImage(imageView, s3Client, "bananas.jpg", "smart-fridge-pics");
 
+
+        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+        Glide.with(getBaseContext())
+                .load("https://smart-fridge-pics.s3.ca-central-1.amazonaws.com/image.jpg")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(imageView);
     }
 
     private void displayImage(ImageView view, AmazonS3Client s3, String imgName, String bktName ) {
