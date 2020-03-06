@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,10 +15,14 @@ import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
 
-    Button tmp, tmp2, a_ing;
+    Button tmp, tmp2;
     ShoppingListDBHelper SLDB;
     SearchDBHelper SDB;
     RecipesDBHelper RDB;
+    ExtraIngredientsDBHelper EDB;
+
+    private SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,31 +40,22 @@ public class Settings extends AppCompatActivity {
 
         tmp = (Button)findViewById(R.id.tmpbtn);
         tmp2 = (Button)findViewById(R.id.tmp2btn);
-        a_ing = (Button)findViewById(R.id.aingbtn);
         SLDB = new ShoppingListDBHelper(this);
         SDB = new SearchDBHelper(this);
         RDB = new RecipesDBHelper(this);
+        EDB = new ExtraIngredientsDBHelper(this);
 
         tmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SLDB.deleteData();
-                Toast.makeText(Settings.this, "Attempting to erase table...", Toast.LENGTH_SHORT).show();
             }
         });
 
         tmp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SDB.deleteData();
-                RDB.deleteData();
-            }
-        });
-
-        a_ing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Settings.this, ExtraIngredients.class));
+                EDB.deleteData();
             }
         });
     }

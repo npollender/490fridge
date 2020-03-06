@@ -113,6 +113,10 @@ public class Recipes extends AppCompatActivity {
                 //pass parameters to new activity
                 //new intent here
                 Intent intent = new Intent(Recipes.this, SearchResult.class);
+                if (preptime.getText().toString().isEmpty() && name.getText().toString().isEmpty() && calories.getText().toString().isEmpty() && ingredients.getText().toString().isEmpty() && !uselocalinv.isChecked()) {
+                    Toast.makeText(Recipes.this, "Please enter at least one search criteria!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //putExtra...
                 if (uselocalinv.isChecked()) {
                     intent.putExtra("use_inv", true);
@@ -132,6 +136,7 @@ public class Recipes extends AppCompatActivity {
                     intent.putExtra("calories", pass_cal);
                 }
                 dialog.dismiss();
+                Toast.makeText(Recipes.this, "Searching... Please wait...", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

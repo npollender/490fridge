@@ -19,6 +19,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/refresh_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/circular_button"
+        android:drawableLeft="@drawable/refresh32"
+        android:foreground="@drawable/button_ripple"
+        android:paddingLeft="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/to_extra_btn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"

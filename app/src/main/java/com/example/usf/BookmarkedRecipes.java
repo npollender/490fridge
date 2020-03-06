@@ -43,13 +43,13 @@ public class BookmarkedRecipes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RDB = new RecipesDBHelper(this);
-
         recipeTable = new ArrayList<>();
 
         recipelist = (ListView)findViewById(R.id.bm_list);
 
         viewData();
 
+        //brings you to viewrecipe activity and displays the selected recipe contents
         recipelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,6 +60,7 @@ public class BookmarkedRecipes extends AppCompatActivity {
             }
         });
 
+        //for deleting a recipe
         recipelist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,6 +98,7 @@ public class BookmarkedRecipes extends AppCompatActivity {
         }
     }
 
+    //popup dialog for deleting a row, if user confirms, row is deleted from the table
     public void deletePopOut(final String s) {
         final Dialog dialog = new Dialog(BookmarkedRecipes.this);
         dialog.setContentView(R.layout.delete_shopping_list_dialog);
@@ -128,6 +130,8 @@ public class BookmarkedRecipes extends AppCompatActivity {
         dialog.show();
     }
 
+    //takes all the information of a recipe from the table and passes them to the putallextras method
+    //the returned intent is used to navigate to the viewrecipe activity with all the recipe info
     public Intent passParameters(String name) {
         Intent intent;
         String desc, ings, instr, qings, source, servings, pt, nv, attach;
@@ -149,6 +153,8 @@ public class BookmarkedRecipes extends AppCompatActivity {
         return intent;
     }
 
+    //puts all the extras into the intent, each column of the selected recipe are individually included in the putextra
+    //the passed parameters can be
     public Intent putAllExtras(String name, String desc, String instr, String ings, String qings, String category, String source, String servings, String pt, String nv, String attach, boolean tag) {
         Intent intent = new Intent(BookmarkedRecipes.this, ViewRecipe.class);
         intent.putExtra("name", name);
@@ -164,5 +170,10 @@ public class BookmarkedRecipes extends AppCompatActivity {
         intent.putExtra("attach", attach);
         intent.putExtra("tag", tag);
         return intent;
+    }
+
+    //TODO: perhaps make a global method for setting the action bar...
+    public void setActionbar() {
+
     }
 }

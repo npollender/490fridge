@@ -24,7 +24,7 @@ public class ViewRecipe extends AppCompatActivity {
     String name, desc, instr, ings, qings, source, servings, pt, nv, attach;
     String category;
     boolean tag, fromSearch;
-    TextView tname, tdesc, tings, tsource, tpt, tnv, tcategory, tservings;
+    TextView tname, tdesc, tings, tinstr, tsource, tpt, tnv, tcategory, tservings;
     ImageView iv;
     Intent intent;
     FloatingActionButton missing, addToBM;
@@ -69,6 +69,7 @@ public class ViewRecipe extends AppCompatActivity {
 
         tname = (TextView)findViewById(R.id.VR_name);
         tdesc = (TextView)findViewById(R.id.vr_desc);
+        tinstr = (TextView)findViewById(R.id.vr_instr);
         tings = (TextView)findViewById(R.id.vr_ing);
         tpt = (TextView)findViewById(R.id.vr_pt);
         tnv = (TextView)findViewById(R.id.vr_nv);
@@ -78,7 +79,7 @@ public class ViewRecipe extends AppCompatActivity {
         iv = (ImageView)findViewById(R.id.dish_pic);
         addToBM = (FloatingActionButton)findViewById(R.id.add_to_bookmarks);
 
-        tcategory.setText("Category\n" + category);
+        tcategory.setText("Category:\n" + category);
         if (!fromSearch) {
             addToBM.hide();
         }
@@ -94,33 +95,34 @@ public class ViewRecipe extends AppCompatActivity {
 
         final String split[] = ings.split(" \\| ");
         String qsplit[] = qings.split(" \\| ");
-        tings.setText("");
+        tings.setText("Ingredients:\n");
         try {
 
         for (int i = 0; i < split.length; i++) {
             if (i == split.length - 1) {
-                tings.append(">"+qsplit[i] + " " + split[i] + ".");
+                tings.append("\u2022 "+qsplit[i] + " " + split[i] + ".");
             }
             else {
-                tings.append(">"+qsplit[i] + " " + split[i] + "\n");
+                tings.append("\u2022 "+qsplit[i] + " " + split[i] + "\n");
             }
         }}catch(Exception ignored) {}
 
         String[] instr_split = instr.split(" \\| ");
 
-        tdesc.setText(desc +"\n\n");
+        tdesc.setText("Description:\n" + desc);
+        tinstr.setText("Instructions:\n");
         for (int i = 0; i < instr_split.length; i++) {
             if (i == instr_split.length - 1) {
-                tdesc.append(">"+instr_split[i] + ".");
+                tinstr.append(i+1 +". "+instr_split[i]);
             }
             else {
-                tdesc.append(">"+instr_split[i] + "\n");
+                tinstr.append(i+1 +". "+instr_split[i] + "\n");
             }
         }
 
         tname.setText(name);
         tpt.setText("Prep time:\n" + pt);
-        tnv.setText(nv);
+        tnv.setText("Nutrional Values:\n"+nv);
         tservings.setText("Servings:\n" + servings);
 
         missing.setOnClickListener(new View.OnClickListener() {

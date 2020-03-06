@@ -87,4 +87,10 @@ public class ExtraIngredientsDBHelper extends SQLiteOpenHelper {
         }
         return names;
     }
+
+    //deletes the entire table
+    public void deleteData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
+    }
 }

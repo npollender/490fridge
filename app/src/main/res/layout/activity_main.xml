@@ -29,8 +29,7 @@
         app:backgroundTint="#D1D1D1"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/settings_64"
-        app:fabSize="auto"/>
+        app:srcCompat="@drawable/user64blk"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"

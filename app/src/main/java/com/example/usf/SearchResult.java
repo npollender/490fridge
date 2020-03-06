@@ -131,7 +131,6 @@ public class SearchResult extends AppCompatActivity {
                     "WHERE prep_time <= " + fmtStrDB(passed_pt);
         }
 
-
 //        TODO - for the calorie (once that's setup)
 //        if (passed_cal != null) {
 //            query_cal = "SELECT * " +
@@ -166,6 +165,8 @@ public class SearchResult extends AppCompatActivity {
                 for (String k : EDB.getNames()) {
                     queries.add("INSERT INTO temp_ingredients VALUES (" + fmtStrDB(k) + ");");
                 }
+
+                //TODO: add the image processing here
             }
 
             try {
@@ -290,5 +291,4 @@ public class SearchResult extends AppCompatActivity {
         intent.putExtra("fromSearch", fromSearch);
         return intent;
     }
-
 }

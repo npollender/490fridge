@@ -39,7 +39,7 @@ public class Inventory extends AppCompatActivity {
 
     InventoryDBHelper IDB;
     TextView pAtxt, pBtxt, pCtxt, pDtxt, pEtxt, pFtxt;
-    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras;
+    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras, refresh;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -67,6 +67,7 @@ public class Inventory extends AppCompatActivity {
         pEbtn = (Button)findViewById(R.id.partitionEbtn);
         pFbtn = (Button)findViewById(R.id.partitionFbtn);
         toExtras = (Button)findViewById(R.id.to_extra_btn);
+        refresh = (Button)findViewById(R.id.refresh_btn);
         pAtxt = (TextView)findViewById(R.id.pAtxt);
         pBtxt = (TextView)findViewById(R.id.pBtxt);
         pCtxt = (TextView)findViewById(R.id.pCtxt);
@@ -115,7 +116,6 @@ public class Inventory extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        getWeightFromServer();
         viewData();
 
         toExtras.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +167,16 @@ public class Inventory extends AppCompatActivity {
                 return true;
             }
         });
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getWeightFromServer();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
     }
 
     //show an image for each partition
@@ -204,7 +214,7 @@ public class Inventory extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 String iname = cursor.getString(1);
                 String iamnt = cursor.getString(2);
-                String toAdd = "Item: " + iname + "\nWeight: " + iamnt;
+                String toAdd = "Item: " + iname + "\nWeight: " + iamnt + " g";
                 view[count] = toAdd;
                 count++;
             }
@@ -260,6 +270,8 @@ public class Inventory extends AppCompatActivity {
             establishDBConnection(getBaseContext().getAssets().open("db_config.properties"));
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(Inventory.this, "Failed to connect to server, weight unchanged...", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // TODO - make it dynamic for all partitions
@@ -275,6 +287,96 @@ public class Inventory extends AppCompatActivity {
                 String value = res.getString(1);
 
                 IDB.updateWeight(1, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'B'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(2, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'C'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(3, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'D'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(4, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'E'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(5, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'F'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(6, Double.valueOf(value));
             }
 
         } catch (SQLException ex) {

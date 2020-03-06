@@ -29,11 +29,13 @@ public class InteriorView extends AppCompatActivity {
         getSupportActionBar().setCustomView(tv);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //TODO: find a better way to do this, currently the link is public access
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
         Glide.with(getBaseContext())
                 .load("https://smart-fridge-pics.s3.ca-central-1.amazonaws.com/image.jpg")
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
+                .centerCrop()
                 .into(imageView);
     }
 }

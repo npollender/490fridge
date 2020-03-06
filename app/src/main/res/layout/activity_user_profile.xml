@@ -3,7 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background_gradient"
     android:layout_height="match_parent"
     tools:context=".UserProfile">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway"
+            android:text="GYN"
+            android:layout_marginBottom="120dp"
+            android:textColor="#FFFFFF"
+            android:textSize="100sp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:hint="Refrigerator ID"
+            android:textAlignment="center"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/round_textview"
+            android:layout_margin="10dp"
+            android:textSize="25sp"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:textAlignment="center"
+            android:fontFamily="@font/raleway"
+            android:background="@drawable/round_textview"
+            android:layout_margin="10dp"
+            android:textSize="25sp"/>
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="75dp"
+            android:background="@drawable/simple_button"
+            android:text="Login"
+            android:fontFamily="@font/raleway"
+            android:layout_margin="10dp"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
