@@ -19,6 +19,8 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
     public static final String COL_2 = "WEIGHT";
     public static final String COL_3 = "FLAG";
 
+    public static final int LOW_WEIGHT = 50;
+
     public InventoryDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
     }
@@ -51,7 +53,7 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         String sweight = cursor.getString(2);
         cursor.close();
         double weight = Double.parseDouble(sweight);
-        return weight < 108;
+        return weight < LOW_WEIGHT;
     }
 
     //returns name of a row depending on id

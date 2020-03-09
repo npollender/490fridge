@@ -52,6 +52,12 @@ public class ShoppingList extends AppCompatActivity {
 
         listTable = new ArrayList<>();
 
+        Boolean openR = getIntent().getBooleanExtra("open_r", false);
+        if (openR) {
+            addFromInv();
+            getIntent().putExtra("open_r", false);
+        }
+
         add_data = (Button)findViewById(R.id.adddatabtn);
         check_low = (Button)findViewById(R.id.checklowbtn);
         shoppinglist = (ListView)findViewById(R.id.shopping_list);

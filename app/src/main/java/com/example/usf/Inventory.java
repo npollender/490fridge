@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -41,6 +42,17 @@ public class Inventory extends AppCompatActivity {
     TextView pAtxt, pBtxt, pCtxt, pDtxt, pEtxt, pFtxt;
     Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras, refresh;
 
+    public static final String PREF = "my_prefs";
+    public static final String PA = "pa";
+    public static final String PB = "pb";
+    public static final String PC = "pc";
+    public static final String PD = "pd";
+    public static final String PE = "pe";
+    public static final String PF = "pf";
+
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +71,10 @@ public class Inventory extends AppCompatActivity {
 
         IDB = new InventoryDBHelper(this);
         IDB.initData();
+
+        this.sp = getSharedPreferences(PREF, 0);
+        //initSP();
+
 
         pAbtn = (Button)findViewById(R.id.partitionAbtn);
         pBbtn = (Button)findViewById(R.id.partitionBbtn);
@@ -382,6 +398,15 @@ public class Inventory extends AppCompatActivity {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void initInvSP() {
+        sp.getBoolean(PA, false);
+        sp.getBoolean(PB, false);
+        sp.getBoolean(PC, false);
+        sp.getBoolean(PD, false);
+        sp.getBoolean(PE, false);
+        sp.getBoolean(PF, false);
     }
 }
 

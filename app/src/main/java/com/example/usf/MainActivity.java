@@ -24,14 +24,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREF = "my_prefs";
+    public static final String NAME = "name";
     public static final String STATUS = "status";
+    public static final String CHECKED = "checked";
 
     ExtraIngredientsDBHelper EDB;
     InventoryDBHelper IDB;
     RecipesDBHelper RDB;
     SearchDBHelper SDB;
     ShoppingListDBHelper SLDB;
-    UserProfile UP = new UserProfile();
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Welcome!");
+        getSupportActionBar().setTitle("GYN Smart Refrigerator");
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
         TextView tv = new TextView(getApplicationContext());
         tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
@@ -54,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         this.sp = getSharedPreferences(PREF, 0);
         this.sp.getBoolean(STATUS, false);
+        this.sp.getBoolean(CHECKED, false);
+
+        String totv = sp.getString(NAME, "");
+        TextView usf = (TextView)findViewById(R.id.usftext);
+        if (!usf.equals("")) {
+            usf.setText("Welcome, " + totv + "!");
+        }
+        else {
+            usf.setText("Welcome to GYN!");
+        }
 
         if (!this.sp.getBoolean(STATUS, false)) {
             loginPopOut();
@@ -91,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Settings.class));
             }
         });
+
+        if (checkWeights()) {
+            if (!sp.getBoolean(CHECKED, false)) {
+                editor = sp.edit();
+                editor.putBoolean(CHECKED, true);
+                editor.apply();
+                toSL();
+            }
+        }
     }
 
     //initialize each database, this will prevent the app from crashing anywhere else in the code if the tables are not yet present.
@@ -125,6 +145,86 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
         dialog.show();
+    }
+
+    public void toSL() {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.delete_shopping_list_dialog);
+        TextView prompt = (TextView)dialog.findViewById(R.id.areyousure);
+        Button yes = (Button)dialog.findViewById(R.id.yesbtn);
+        Button no = (Button)dialog.findViewById(R.id.nobtn);
+
+        prompt.setEnabled(true);
+        yes.setEnabled(true);
+        no.setEnabled(true);
+
+        prompt.setText("Low inventory on item(s), go to shopping list?");
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShoppingList.class);
+                intent.putExtra("open_r", true);
+                dialog.dismiss();
+                startActivity(intent);
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public Boolean checkWeights() {
+        Boolean result = false;
+        int i = 0;
+        editor = sp.edit();
+        if (IDB.checkIfLow(1)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (IDB.checkIfLow(2)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (IDB.checkIfLow(3)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (IDB.checkIfLow(4)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (IDB.checkIfLow(5)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (IDB.checkIfLow(6)) {
+            result = true;
+        }
+        else {
+            i++;
+        }
+        if (i == 6) {
+            editor.putBoolean(CHECKED, false);
+            editor.apply();
+        }
+        return result;
     }
 }

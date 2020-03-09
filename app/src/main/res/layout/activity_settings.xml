@@ -8,8 +8,9 @@
     tools:context=".Settings">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2">
@@ -36,6 +37,34 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3">
+
+        <Button
+            android:id="@+id/changenamebtn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/simple_button"
+            android:fontFamily="@font/raleway"
+            android:foreground="@drawable/button_ripple"
+            android:text="change name" />
+
+        <Button
+            android:id="@+id/tmp3btn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/simple_button"
+            android:fontFamily="@font/raleway"
+            android:foreground="@drawable/button_ripple"
+            android:text="tmp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,7 +79,7 @@
             app:srcCompat="@drawable/user512" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nameofuser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway"
