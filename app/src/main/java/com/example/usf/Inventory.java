@@ -1,12 +1,20 @@
 package com.example.usf;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,19 +28,53 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static com.example.usf.PostgreSQLHelper.*;
+
 public class Inventory extends AppCompatActivity {
 
     InventoryDBHelper IDB;
     TextView pAtxt, pBtxt, pCtxt, pDtxt, pEtxt, pFtxt;
-    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn;
+    Button pAbtn, pBbtn, pCbtn, pDbtn, pEbtn, pFbtn, toExtras, refresh;
 
+    public static final String PREF = "my_prefs";
+    public static final String PA = "pa";
+    public static final String PB = "pb";
+    public static final String PC = "pc";
+    public static final String PD = "pd";
+    public static final String PE = "pe";
+    public static final String PF = "pf";
+
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+        getSupportActionBar().setTitle("Monitored Inventory");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
+        TextView tv = new TextView(getApplicationContext());
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/raleway.ttf"));
+        tv.setText(getSupportActionBar().getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(20);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         IDB = new InventoryDBHelper(this);
         IDB.initData();
+
+        this.sp = getSharedPreferences(PREF, 0);
+        //initSP();
+
 
         pAbtn = (Button)findViewById(R.id.partitionAbtn);
         pBbtn = (Button)findViewById(R.id.partitionBbtn);
@@ -40,6 +82,8 @@ public class Inventory extends AppCompatActivity {
         pDbtn = (Button)findViewById(R.id.partitionDbtn);
         pEbtn = (Button)findViewById(R.id.partitionEbtn);
         pFbtn = (Button)findViewById(R.id.partitionFbtn);
+        toExtras = (Button)findViewById(R.id.to_extra_btn);
+        refresh = (Button)findViewById(R.id.refresh_btn);
         pAtxt = (TextView)findViewById(R.id.pAtxt);
         pBtxt = (TextView)findViewById(R.id.pBtxt);
         pCtxt = (TextView)findViewById(R.id.pCtxt);
@@ -82,7 +126,20 @@ public class Inventory extends AppCompatActivity {
                 showImage();
             }
         });
+
+        // These two lines are really needed to solve the issue
+        // --Something unusual has occurred to cause the driver to fail.--
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         viewData();
+
+        toExtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Inventory.this, ExtraIngredients.class));
+            }
+        });
 
         pAtxt.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -126,6 +183,16 @@ public class Inventory extends AppCompatActivity {
                 return true;
             }
         });
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getWeightFromServer();
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
     }
 
     //show an image for each partition
@@ -146,6 +213,7 @@ public class Inventory extends AppCompatActivity {
         builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.setCanceledOnTouchOutside(true);
         builder.show();
     }
 
@@ -162,7 +230,7 @@ public class Inventory extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 String iname = cursor.getString(1);
                 String iamnt = cursor.getString(2);
-                String toAdd = "Item: " + iname + "\nWeight: " + iamnt;
+                String toAdd = "Item: " + iname + "\nWeight: " + iamnt + " g";
                 view[count] = toAdd;
                 count++;
             }
@@ -208,8 +276,137 @@ public class Inventory extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void getWeightFromServer() {
+        try {
+            establishDBConnection(getBaseContext().getAssets().open("db_config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(Inventory.this, "Failed to connect to server, weight unchanged...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // TODO - make it dynamic for all partitions
+        String query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'A'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(1, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'B'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(2, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'C'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(3, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'D'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(4, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'E'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(5, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        query = "SELECT quantity " +
+                "FROM inventory_tb " +
+                "WHERE partition = 'F'";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet res = pstmt.executeQuery()) {
+
+            while (res.next()) {
+                String value = res.getString(1);
+
+                IDB.updateWeight(6, Double.valueOf(value));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void initInvSP() {
+        sp.getBoolean(PA, false);
+        sp.getBoolean(PB, false);
+        sp.getBoolean(PC, false);
+        sp.getBoolean(PD, false);
+        sp.getBoolean(PE, false);
+        sp.getBoolean(PF, false);
     }
 }
 
