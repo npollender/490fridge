@@ -10,4 +10,4 @@ The main python script "run_on_startup.py" uses community made libraries and exa
 4. example_hx711.py
 
 
-We do not claim any of these scripts as our own!
+We do not claim ownership of any of these scripts as our own!
