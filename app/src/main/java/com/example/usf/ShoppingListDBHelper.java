@@ -3,6 +3,7 @@ package com.example.usf;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -68,6 +69,21 @@ public class ShoppingListDBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public String[] getNames() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        int n = (int)count;
+        Cursor cursor = viewData();
+        String[] names = new String[n];
+
+        int i = 0;
+        while (cursor.moveToNext()) {
+            names[i] = cursor.getString(1);
+            i++;
+        }
+        return names;
+    }
+
     //deletes the entire table
     public void deleteData() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,7 +102,6 @@ public class ShoppingListDBHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_1, new_name);
         cv.put(COL_2, amount);
-        cv.put(COL_3, "");
         db.update(TABLE_NAME, cv, COL_1 + " =?", new String[] {name});
     }
 }

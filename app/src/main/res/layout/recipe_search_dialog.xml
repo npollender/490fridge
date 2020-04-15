@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="325dp"
+    android:background="@drawable/curved_dialog"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="5dp"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="Search for a recipe! \nBlank fields are ignored."
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/searchmsg"
+        android:textColor="#000000"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:fontFamily="@font/raleway"
+        android:textSize="20sp"
+        android:layout_margin="4dp"
+        android:hint="Name"
+        android:id="@+id/searchname"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:fontFamily="@font/raleway"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:textSize="20sp"
+        android:hint="Preperation Time (in minutes)"
+        android:id="@+id/searchpreptime"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:inputType="number"
+        android:fontFamily="@font/raleway"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Calories"
+        android:id="@+id/searchcalories"
+        android:layout_height="match_parent"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:fontFamily="@font/raleway"
+        android:textSize="20sp"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Ingredients"
+        android:id="@+id/searching"/>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Use personal inventory"
+        android:textSize="20sp"
+        android:fontFamily="@font/raleway"
+        android:id="@+id/useinv"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/searchbtn"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/simple_button"
+            android:fontFamily="@font/raleway"
+            android:text="search" />
+
+        <Button
+            android:id="@+id/searchcancelbtn"
+            android:textSize="20sp"
+            android:layout_width="120dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
+            android:background="@drawable/simple_button"
+            android:fontFamily="@font/raleway"
+            android:text="cancel" />
+
+    </LinearLayout>
+</LinearLayout>

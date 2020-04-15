@@ -3,6 +3,7 @@ package com.example.usf;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -17,6 +18,8 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
     public static final String COL_1 = "ITEM_NAME";
     public static final String COL_2 = "WEIGHT";
     public static final String COL_3 = "FLAG";
+
+    public static final int LOW_WEIGHT = 50;
 
     public InventoryDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -50,7 +53,7 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         String sweight = cursor.getString(2);
         cursor.close();
         double weight = Double.parseDouble(sweight);
-        return weight < 108;
+        return weight < LOW_WEIGHT;
     }
 
     //returns name of a row depending on id
@@ -71,6 +74,16 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         ContentValues cv = new ContentValues();
         cv.put(COL_1, name);
+        db.update(TABLE_NAME, cv, _ID + " = " + id, null);
+    }
+
+    public void updateWeight(int id, double weight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + " = " + id;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_2, weight);
         db.update(TABLE_NAME, cv, _ID + " = " + id, null);
     }
 
@@ -102,5 +115,20 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         String query = "Select * from " + TABLE_NAME;
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
+    }
+
+    public String[] getNames() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        int n = (int)count;
+        Cursor cursor = viewData();
+        String[] names = new String[n];
+
+        int i = 0;
+        while (cursor.moveToNext()) {
+            names[i] = cursor.getString(1);
+            i++;
+        }
+        return names;
     }
 }

@@ -4,94 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/invbtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginLeft="63dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
-        android:layout_marginBottom="9dp"
-        android:text="Inventory"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/cambtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usftext" />
-
-    <Button
-        android:id="@+id/cambtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginLeft="63dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
-        android:layout_marginBottom="8dp"
-        android:text="Interior"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/listbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invbtn" />
-
-    <Button
-        android:id="@+id/listbtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginLeft="63dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
-        android:layout_marginBottom="10dp"
-        android:text="Shopping List"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/recipebtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cambtn" />
-
-    <Button
-        android:id="@+id/recipebtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginLeft="63dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
-        android:layout_marginBottom="61dp"
-        android:text="Recipes"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/stngbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listbtn" />
-
-    <Button
-        android:id="@+id/stngbtn"
+        android:id="@+id/temp_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Settings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipebtn" />
+        android:text="N/A"
+        android:background="@drawable/simple_button_translucent"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/temp_32"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/usftext"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/settings_fp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:layout_marginBottom="132dp"
-        android:text="GYN Smart Fridge"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/invbtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:backgroundTint="#D1D1D1"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/user64blk"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/usftext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway"
+            android:textColor="#FFFFFF"
+            android:layout_marginVertical="20dp"
+            android:text="GYN Smart Fridge"
+            android:textSize="36sp" />
+
+        <Button
+            android:id="@+id/invbtn"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:fontFamily="@font/raleway"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/simple_button"
+            android:foreground="@drawable/button_ripple"
+            android:drawableLeft="@drawable/basket_alt_32"
+            android:paddingLeft="15dp"
+            android:text="Inventory"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/cambtn"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:fontFamily="@font/raleway"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/simple_button"
+            android:foreground="@drawable/button_ripple"
+            android:drawableLeft="@drawable/interior_32"
+            android:paddingLeft="15dp"
+            android:text="Interior"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/listbtn"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:fontFamily="@font/raleway"
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/simple_button"
+            android:foreground="@drawable/button_ripple"
+            android:drawableLeft="@drawable/cart_32"
+            android:paddingLeft="12dp"
+            android:text="Shopping List"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/recipebtn"
+            android:layout_width="250dp"
+            android:layout_height="75dp"
+            android:fontFamily="@font/raleway"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/simple_button"
+            android:foreground="@drawable/button_ripple"
+            android:drawableLeft="@drawable/recipe"
+            android:paddingLeft="15dp"
+            android:text="Recipes"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

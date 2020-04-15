@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.usf">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +11,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExtraIngredients"></activity>
-        <activity android:name=".Settings" />
-        <activity android:name=".Recipes" />
-        <activity android:name=".ShoppingList" />
-        <activity android:name=".InteriorView" />
-        <activity android:name=".Inventory" />
+        <activity android:name=".UserProfile"></activity>
+        <activity
+            android:name=".SearchResult"
+            android:parentActivityName=".Recipes"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ViewRecipe"
+            android:parentActivityName=".Recipes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BookmarkedRecipes"
+            android:parentActivityName=".Recipes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExtraIngredients"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Recipes"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShoppingList"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InteriorView"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Inventory"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

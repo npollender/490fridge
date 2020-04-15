@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ExtraIngredients">
 
+    <ListView
+        android:id="@+id/ei_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addeibtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:text="+"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:foreground="@drawable/button_ripple"
+        android:background="@drawable/button_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

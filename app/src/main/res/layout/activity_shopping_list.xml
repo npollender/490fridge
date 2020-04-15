@@ -6,32 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ShoppingList">
 
+    <Button
+        android:id="@+id/checklowbtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:background="@drawable/button_style"
+        android:drawableLeft="@drawable/check_32"
+        android:layout_margin="10dp"
+        android:foreground="@drawable/button_ripple"
+        android:paddingLeft="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/adddatabtn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/adddatabtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:background="@drawable/button_style"
+        android:foreground="@drawable/button_ripple"
+        android:text="+"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ListView
         android:id="@+id/shopping_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/adddatabtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NEW"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checklowbtn" />
-
-    <Button
-        android:id="@+id/checklowbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:text="Check"
-        app:layout_constraintBaseline_toBaselineOf="@+id/adddatabtn"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

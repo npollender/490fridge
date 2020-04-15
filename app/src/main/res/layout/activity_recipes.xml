@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".Recipes">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_gradient"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/BMR_btn"
+            android:layout_width="301dp"
+            android:layout_height="100dp"
+            android:layout_margin="50dp"
+            android:fontFamily="@font/raleway"
+            android:text="Bookmarks"
+            android:foreground="@drawable/button_ripple"
+            android:background="@drawable/simple_button"
+            android:drawableLeft="@drawable/bookmark"
+            android:paddingLeft="15dp"
+            android:textSize="35dp" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="305dp"
+            android:layout_height="100dp"
+            android:fontFamily="@font/raleway"
+            android:text="Search"
+            android:foreground="@drawable/button_ripple"
+            android:background="@drawable/simple_button"
+            android:drawableLeft="@drawable/search"
+            android:paddingLeft="15dp"
+            android:textSize="35dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
