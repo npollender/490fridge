@@ -1,0 +1,8 @@
+######## This file contains packages to be installed for lamba #######
+#
+###### Google Cloud Vision API ######
+google-cloud-vision
+###### PostgreSQL ######
+psycopg2-binary
+###### S3 module ######
+boto3
